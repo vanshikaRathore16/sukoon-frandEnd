@@ -2,9 +2,25 @@ import { Link } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../footer";
 import { QouteCategorylist } from "../../App";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
+import EndPoint from "../apis/EndPoint";
 function Qoute() {
   let {CategoryList} = useContext(QouteCategorylist);
+  const[qoute,setQoute] = useState();
+  useEffect(()=>{
+       const fatchData = async()=>{
+        try{
+          let responce = await axios.get(EndPoint.RONDOM_QOUTE);
+          setQoute(responce.data.rondomQuote);
+          console.log(responce.data);
+        }catch(err){
+        console.log(err);
+        }
+       }
+       fatchData();
+  },[])
    return (
     <>
       <Header />
@@ -161,10 +177,10 @@ function Qoute() {
               className="fs-4 fst-italic text-dark"
               style={{ borderLeft: "5px solid #033d00", paddingLeft: "15px" }}
             >
-              "What you think, you become. What you feel, you attract. What you
-              imagine, you create."
+             <p className="lead">{qoute?.text}</p>
+              
             </blockquote>
-            <h5 className="text-end mt-3 text-muted">– Buddha</h5>
+            <h5 className="text-end mt-3 text-muted">–{qoute?.author}</h5>
           </div>
         </div>
 

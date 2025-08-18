@@ -53,6 +53,22 @@ function AdminDoshborad(){
             🧘‍♀️ show-feedback
           </Link>
         </li>
+         <li style={{ marginBottom: "20px" }}>
+          <Link
+            to="/medidationForm"
+            style={{ color: "white", textDecoration: "none", cursor: "pointer" }}
+          >
+            🧘‍♀️ add medidatioon
+          </Link>
+        </li>
+         <li style={{ marginBottom: "20px" }}>
+          <Link
+            to="/createArticle"
+            style={{ color: "white", textDecoration: "none", cursor: "pointer" }}
+          >
+            🧘‍♀️ add article
+          </Link>
+        </li>
       </ul>
       </div>
 

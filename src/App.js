@@ -34,6 +34,12 @@ import UserfavoriteQuotes from "./componenet/qoute/qouteList.js";
 import UserFavoritePoses from "./componenet/pose/userFavPose.js";
 import UserMoodHistory from "./componenet/mood/userMood.js";
 import AdminAllFeedback from "./componenet/admin/FeedbackPageApprove/feedbackpageApprove.js";
+import Article from "./componenet/article/article.js";
+import MedidationUploadForm from "./componenet/admin/add_medidation/AdminMedidation.js";
+import MeditationList from "./componenet/medidation/newMedidationpage.js";
+import CreateArticle from "./componenet/admin/Adminarticle.js";
+import ArticleDetails from "./componenet/article/artileDetails.js";
+import Breathing from "./componenet/breathing/breathing.js"
 export const QouteCategorylist = createContext();
 function App(){
    const [state,dispatch] = useReducer((state,action)=>{
@@ -96,6 +102,12 @@ const loadQouteCategory = async()=>{
           <Route path = "/userFavoritePose" element = {<UserFavoritePoses/>}/>
           <Route path = "/moodhistory" element = {<UserMoodHistory/>}/>
           <Route path = "/adminallfeedback" element = {<AdminAllFeedback/>}/>
+          <Route path = "/article" element = {<Article/>}/>
+          <Route path = "/medidationForm" element = {<MedidationUploadForm/>}/>
+          <Route path = "/GETMEDITATION" element = {<MeditationList/>}/>
+          <Route path="/createArticle" element = {<CreateArticle/>}/>
+          <Route path = "/articleDetail/:id" element ={<ArticleDetails/>}/>
+          <Route path ="/breathing" element = {<Breathing/>}/>
     </Routes>
   </Router>
   
