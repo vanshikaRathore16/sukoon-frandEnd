@@ -262,124 +262,200 @@ function Home(){
   </div>
 </div>
 
-        {/* how sukoon transorm you */}
-      
       {/* How Sukoon Transforms You */}
-      <section style={{ padding: "2rem 0", backgroundColor: "#f8f9fa" }}>
-        <h2
-          style={{
-            textAlign: "center",
-            fontSize: "1.75rem",
-            fontWeight: "bold",
-            marginBottom: "1.5rem",
-            color: "#333",
-          }}
-        >
-          Discover Your Path to Peace with Sukoon
-        </h2>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 15px" }}>
-          <div className="row">
-            <div className="col-md-4 mb-3">
-              <Link
-                to="/qoute"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <div
-                  className="card"
-                  style={{
-                    padding: "1.5rem",
-                    borderRadius: "0.5rem",
-                    backgroundColor: "#caffbf",
-                    textAlign: "center",
-                    transition: "transform 0.3s, box-shadow 0.3s",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "scale(1.05)";
-                    e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "scale(1)";
-                    e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-                  }}
-                >
-                  <h4 style={{ fontWeight: "600", marginBottom: "0.5rem", fontSize: "1.25rem", color: "#1a2e57" }}>
-                    Daily Inspiration
-                  </h4>
-                  <p style={{ fontSize: "0.875rem", color: "#555" }}>
-                    A daily inspirational quote to uplift your mood and set a positive tone.
-                  </p>
-                </div>
-              </Link>
-            </div>
-            <div className="col-md-4 mb-3">
-              <Link
-                to="/aboutus"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <div
-                  className="card"
-                  style={{
-                    padding: "1.5rem",
-                    borderRadius: "0.5rem",
-                    backgroundColor: "#bdb2ff",
-                    textAlign: "center",
-                    transition: "transform 0.3s, box-shadow 0.3s",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "scale(1.05)";
-                    e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "scale(1)";
-                    e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-                  }}
-                >
-                  <h4 style={{ fontWeight: "600", marginBottom: "0.5rem", fontSize: "1.25rem", color: "#1a2e57" }}>
-                    Session Timer
-                  </h4>
-                  <p style={{ fontSize: "0.875rem", color: "#555" }}>
-                    A customizable timer to track your meditation or yoga sessions with ease.
-                  </p>
-                </div>
-              </Link>
-            </div>
-            <div className="col-md-4 mb-3">
-              <Link
-                to="/breathing"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <div
-                  className="card"
-                  style={{
-                    padding: "1.5rem",
-                    borderRadius: "0.5rem",
-                    backgroundColor: "#ffd6a5",
-                    textAlign: "center",
-                    transition: "transform 0.3s, box-shadow 0.3s",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "scale(1.05)";
-                    e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "scale(1)";
-                    e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0,               }}
-                >
-                  <h4 style={{ fontWeight: "600", marginBottom: "0.5rem", fontSize: "1.25rem", color: "#1a2e57" }}>
-                    Breathing Exercises
-                  </h4>
-                  <p style={{ fontSize: "0.875rem", color: "#555" }}>
-                    Guided breathing exercises to promote relaxation and mindfulness.
-                  </p>
-                </div>
-              </Link>
-            </div>
+      <section style={{ 
+  padding: "3rem 0", 
+  background: "linear-gradient(to bottom, #e9f0ff 0%, #f8f9fa 100%)",
+}}>
+  <h2
+    style={{
+      textAlign: "center",
+      fontSize: "2rem",
+      fontWeight: "bold",
+      marginTop: "2.5rem",
+      marginBottom: "2.5rem",
+      color: "#003366",
+      lineHeight: "1.3",
+    }}
+  >
+    Discover Your Path to Peace with Sukoon
+  </h2>
+  <div style={{ 
+    maxWidth: "1200px", 
+    margin: "0 auto", 
+    padding: "0 20px", 
+    marginTop: "80px", 
+    marginBottom: "80px",
+  }}>
+    <div className="row">
+      {/* Daily Inspiration */}
+      <div className="col-md-4 mb-4">
+        <Link to="/qoute" style={{ textDecoration: "none", color: "inherit" }}>
+          <div
+            className="card"
+            style={{
+              padding: "2rem",
+              borderRadius: "1rem",
+              backgroundColor: "#a8e6a3",
+              textAlign: "center",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease",
+              boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
+              border: "1px solid rgba(0, 0, 0, 0.05)",
+              animation: "fadeIn 0.5s ease-in-out",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.05)";
+              e.currentTarget.style.boxShadow = "0 10px 20px rgba(0, 0, 0, 0.25)";
+              e.currentTarget.style.backgroundColor = "#9ad991";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.15)";
+              e.currentTarget.style.backgroundColor = "#a8e6a3";
+            }}
+          >
+            <span style={{ fontSize: "2rem", color: "#1a2e57", display: "block", marginBottom: "0.5rem" }}>🌟</span>
+            <h4
+              style={{
+                fontWeight: "600",
+                marginBottom: "0.75rem",
+                fontSize: "1.5rem",
+                color: "#1a2e57",
+                lineHeight: "1.2",
+              }}
+            >
+              Daily Inspiration
+            </h4>
+            <p style={{ fontSize: "1rem", color: "#555", lineHeight: "1.5" }}>
+              A daily inspirational quote to uplift your mood and set a positive tone.
+            </p>
           </div>
-        </div>
-      </section>
+        </Link>
+      </div>
+
+      {/* Session Timer */}
+      <div className="col-md-4 mb-4">
+        <Link to="/aboutus" style={{ textDecoration: "none", color: "inherit" }}>
+          <div
+            className="card"
+            style={{
+              padding: "2rem",
+              borderRadius: "1rem",
+              backgroundColor: "#a8a8ff",
+              textAlign: "center",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease",
+              boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
+              border: "1px solid rgba(0, 0, 0, 0.05)",
+              animation: "fadeIn 0.5s ease-in-out 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.05)";
+              e.currentTarget.style.boxShadow = "0 10px 20px rgba(0, 0, 0, 0.25)";
+              e.currentTarget.style.backgroundColor = "#9999ff";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.15)";
+              e.currentTarget.style.backgroundColor = "#a8a8ff";
+            }}
+          >
+            <span style={{ fontSize: "2rem", color: "#1a2e57", display: "block", marginBottom: "0.5rem" }}>⏱️</span>
+            <h4
+              style={{
+                fontWeight: "600",
+                marginBottom: "0.75rem",
+                fontSize: "1.5rem",
+                color: "#1a2e57",
+                lineHeight: "1.2",
+              }}
+            >
+              Session Timer
+            </h4>
+            <p style={{ fontSize: "1rem", color: "#555", lineHeight: "1.5" }}>
+              A customizable timer to track your meditation or yoga sessions with ease.
+            </p>
+          </div>
+        </Link>
+      </div>
+
+      {/* Breathing Exercises */}
+      <div className="col-md-4 mb-4">
+        <Link to="/breathing" style={{ textDecoration: "none", color: "inherit" }}>
+          <div
+            className="card"
+            style={{
+              padding: "2rem",
+              borderRadius: "1rem",
+              backgroundColor: "#ffbe7d",
+              textAlign: "center",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease",
+              boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
+              border: "1px solid rgba(0, 0, 0, 0.05)",
+              animation: "fadeIn 0.5s ease-in-out 0.4s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.05)";
+              e.currentTarget.style.boxShadow = "0 10px 20px rgba(0, 0, 0, 0.25)";
+              e.currentTarget.style.backgroundColor = "#ffb165";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.15)";
+              e.currentTarget.style.backgroundColor = "#ffbe7d";
+            }}
+          >
+            <span style={{ fontSize: "2rem", color: "#1a2e57", display: "block", marginBottom: "0.5rem" }}>🌬️</span>
+            <h4
+              style={{
+                fontWeight: "600",
+                marginBottom: "0.75rem",
+                fontSize: "1.5rem",
+                color: "#1a2e57",
+                lineHeight: "1.2",
+              }}
+            >
+              Breathing Exercises
+            </h4>
+            <p style={{ fontSize: "1rem", color: "#555", lineHeight: "1.5" }}>
+              Guided breathing exercises to promote relaxation and mindfulness.
+            </p>
+          </div>
+        </Link>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    {`
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .col-md-4 {
+          margin-bottom: 1.5rem;
+        }
+        .card {
+          padding: 1.5rem !important;
+        }
+        h4 {
+          font-size: 1.25rem !important;
+        }
+        p {
+          font-size: 0.875rem !important;
+        }
+      }
+    `}
+  </style>
+</section>
+
 
           {/*  qoute */}  
         <div className="quete-section ">
@@ -394,118 +470,242 @@ function Home(){
             </div>
         </div>
         {/* article by mood */}
-            <div className="container my-5">
-      <h3 className="mb-4 text-center fw-bold" style={{ color: "#0d6efd" }}>
-        Articles Based on Your Mood
-      </h3>
+   <div className="container my-5 py-5" style={{ background: "linear-gradient(to bottom, #e9f0ff 0%, #f8f9fa 100%)", borderRadius: "1rem" }}>
+  <h3
+    className="mb-5 text-center fw-bold"
+    style={{
+      color: "#003366",
+      fontSize: "2.25rem",
+      letterSpacing: "0.5px",
+      lineHeight: "1.3",
+    }}
+  >
+    Articles Based on Your Mood
+  </h3>
 
-      <div
-        className="d-flex overflow-auto"
-        style={{
-          gap: "20px",
-          paddingBottom: "15px",
-          paddingTop: "10px",
-        }}
-      >
-        {artice && artice.length > 0 ? (
-          artice.map((article) => (
+  <div
+    className="d-flex overflow-auto"
+    style={{
+      gap: "25px",
+      paddingBottom: "20px",
+      paddingTop: "15px",
+      scrollSnapType: "x mandatory",
+      scrollbarWidth: "thin",
+    }}
+  >
+    {artice && artice.length > 0 ? (
+      artice.map((article, index) => (
+        <div
+          key={article._id}
+          className="card shadow-lg"
+          style={{
+            minWidth: "320px",
+            maxWidth: "320px",
+            borderRadius: "20px",
+            flex: "0 0 auto",
+            transition: "transform 0.4s ease, box-shadow 0.4s ease",
+            border: "1px solid rgba(0, 0, 0, 0.05)",
+            backgroundColor: "#ffffff",
+            animation: `fadeIn 0.5s ease-in-out ${index * 0.2}s`,
+            scrollSnapAlign: "start",
+          }}
+        >
+          {/* Article Image with overlay */}
+          {article.Image && (
             <div
-              key={article._id}
-              className="card shadow-lg"
               style={{
-                minWidth: "320px",
-                maxWidth: "320px",
-                borderRadius: "15px",
-                flex: "0 0 auto",
-                transition: "transform 0.3s, box-shadow 0.3s",
+                position: "relative",
+                height: "200px",
+                overflow: "hidden",
+                borderTopLeftRadius: "20px",
+                borderTopRightRadius: "20px",
               }}
             >
-              {/* Article Image with overlay */}
-              {article.Image && (
-                <div
-                  style={{
-                    position: "relative",
-                    height: "180px",
-                    overflow: "hidden",
-                    borderTopLeftRadius: "15px",
-                    borderTopRightRadius: "15px",
-                  }}
-                >
-                  <img
-                    src={article.Image}
-                    alt={article.title}
-                    className="card-img-top"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      transition: "transform 0.5s",
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      background:
-                        "linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3))",
-                    }}
-                  ></div>
-                </div>
-              )}
-
-              <div className="card-body d-flex flex-column">
-                {/* Title */}
-                <h5
-                  className="card-title fw-bold"
-                  style={{ minHeight: "48px", color: "#0d6efd" }}
-                >
-                  {article.title}
-                </h5>
-
-                {/* Description */}
-                <p className="card-text text-muted flex-grow-1">
-                  {article.description.length > 80
-                    ? article.description.slice(0, 80) + "..."
-                    : article.description}
-                </p>
-
-                {/* Read More Button */}
-                <Link
-                  to={`/articleDetail/${article._id}`}
-                  className="btn btn-primary mt-2"
-                  style={{
-                    borderRadius: "50px",
-                    fontWeight: "500",
-                    padding: "6px 18px",
-                    alignSelf: "flex-start",
-                  }}
-                >
-                  Read More
-                </Link>
-              </div>
-
-              {/* Card Hover Effect */}
-              <style>
-                {`
-                  .card:hover {
-                    transform: translateY(-6px);
-                    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-                  }
-                  .card img:hover {
-                    transform: scale(1.05);
-                  }
-                `}
-              </style>
+              <img
+                src={article.Image}
+                alt={article.title}
+                className="card-img-top"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  transition: "transform 0.5s ease",
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  background: "linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5))",
+                }}
+              ></div>
+              {/* Mood Badge */}
+              <span
+                style={{
+                  position: "absolute",
+                  top: "15px",
+                  left: "15px",
+                  backgroundColor: "#003366",
+                  color: "#fff",
+                  padding: "5px 12px",
+                  borderRadius: "12px",
+                  fontSize: "0.75rem",
+                  fontWeight: "500",
+                  textTransform: "uppercase",
+                }}
+              >
+                {article.mood || "Inspiration"}
+              </span>
             </div>
-          ))
-        ) : (
-          <p className="text-muted">No articles found for your mood 😔</p>
-        )}
+          )}
+
+          <div className="card-body d-flex flex-column p-4">
+            {/* Title */}
+            <h5
+              className="card-title fw-bold"
+              style={{
+                minHeight: "56px",
+                color: "#003366",
+                fontSize: "1.25rem",
+                lineHeight: "1.4",
+                marginBottom: "0.75rem",
+              }}
+            >
+              {article.title}
+            </h5>
+
+            {/* Description */}
+            <p
+              className="card-text text-muted flex-grow-1"
+              style={{
+                fontSize: "0.9rem",
+                lineHeight: "1.5",
+                maxHeight: "4.5rem",
+                overflow: "hidden",
+                position: "relative",
+              }}
+            >
+              {article.description.length > 80
+                ? article.description.slice(0, 80) + "..."
+                : article.description}
+              {article.description.length > 80 && (
+                <span
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    right: 0,
+                    background: "linear-gradient(to left, #ffffff, transparent)",
+                    width: "50px",
+                    height: "20px",
+                  }}
+                ></span>
+              )}
+            </p>
+
+            {/* Read More Button */}
+            <Link
+              to={`/articleDetail/${article._id}`}
+              className="btn mt-3"
+              style={{
+                borderRadius: "50px",
+                fontWeight: "500",
+                padding: "8px 20px",
+                alignSelf: "flex-start",
+                background: "linear-gradient(90deg, #003366, #005588)",
+                color: "#fff",
+                transition: "background 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "linear-gradient(90deg, #005588, #0077b6)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "linear-gradient(90deg, #003366, #005588)";
+              }}
+            >
+              Read More
+            </Link>
+          </div>
+        </div>
+      ))
+    ) : (
+      <div
+        className="text-center w-100 py-5"
+        style={{
+          backgroundColor: "#f8f9fa",
+          borderRadius: "15px",
+          border: "1px dashed #ccc",
+        }}
+      >
+        <p
+          className="text-muted mb-0"
+          style={{ fontSize: "1.1rem", color: "#555" }}
+        >
+          No articles found for your mood 😔
+        </p>
+        <p style={{ fontSize: "0.9rem", color: "#777" }}>
+          Try selecting a different mood to explore more content.
+        </p>
       </div>
-    </div>
+    )}
+  </div>
+
+  <style>
+    {`
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      }
+
+      .card img:hover {
+        transform: scale(1.08);
+      }
+
+      .d-flex.overflow-auto::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      .d-flex.overflow-auto::-webkit-scrollbar-track {
+        background: #e9ecef;
+        border-radius: 10px;
+      }
+
+      .d-flex.overflow-auto::-webkit-scrollbar-thumb {
+        background: #003366;
+        border-radius: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .card {
+          min-width: 280px !important;
+          max-width: 280px !important;
+        }
+        .card-body {
+          padding: 1.5rem !important;
+        }
+        h5.card-title {
+          font-size: 1.1rem !important;
+        }
+        p.card-text {
+          font-size: 0.85rem !important;
+        }
+      }
+    `}
+  </style>
+</div>
         {/* feedvback form */}
         <section style={{ background: "#f0f4f9", padding: "2rem 0" }}>
       <h2
@@ -516,7 +716,7 @@ function Home(){
           fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
         }}
       >
-        Over 2 million 5-star reviews.
+        what our user say
       </h2>
       <div
         style={{

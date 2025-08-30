@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { FaHeart, FaPlay, FaPause } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { toast } from "react-toastify";
+import axios from "axios";
+import EndPoint from "../apis/EndPoint.js"
+
 
 // Categories for the sidebar
 const categories = [

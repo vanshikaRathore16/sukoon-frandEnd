@@ -6,7 +6,7 @@ import BuildInRoutine from "./componenet/routine/buildInRoutine.js";
 import RoutineList from "./componenet/routine/routineList.js";
 import Qoute from "./componenet/qoute/qoute.js";
 import Mood from "./componenet/mood/mood.js";
-import Jouranl from "./componenet/mood/journal.js";
+// import Jouranl from "./componenet/mood/journal.js";
 import Pose from "./componenet/pose/pose.js";
 import Profile from "./componenet/profile/profile.js";
 import  Metidation from "./componenet/medidation/medidation.js";
@@ -21,7 +21,7 @@ import axios from "axios";
 import EndPoint from "./componenet/apis/EndPoint.js";
 import AddToPose from "./componenet/admin/pose/Addpose.js";
 import PoseDetail from "./componenet/pose/viewMore.js";
-import BeforeLigIn from "./componenet/begoreLogIn/beforeLigIn.js";
+// import BeforeLigIn from "./componenet/begoreLogIn/beforeLigIn.js";
 import AdminRoutine from "./componenet/admin/add_routine/AddRoutine.js";
 import RoutineDetails from "./componenet/routine/routineDeatal.js";
 import FavoritePage from "./componenet/favorite/favorite.js";
@@ -39,10 +39,11 @@ import MedidationUploadForm from "./componenet/admin/add_medidation/AdminMedidat
 import MeditationList from "./componenet/medidation/newMedidationpage.js";
 import CreateArticle from "./componenet/admin/Adminarticle.js";
 import ArticleDetails from "./componenet/article/artileDetails.js";
-import Breathing from "./componenet/breathing/breathing.js"
-import SleepBeforeLogIn from "./componenet/begoreLogIn/sleepBL.js";
-import StressBL from "./componenet/begoreLogIn/stressBeforeLog.js";
-import Mindfullness from "./componenet/begoreLogIn/mindfullness.js";
+import Breathing from "./componenet/breathing/breathing.js";
+import BeforeLigIn from "./componenet/beforelogin/beforelogin.js";
+// import SleepBeforeLogIn from "./componenet/begoreLogIn/sleepBL.js";
+// import StressBL from "./componenet/begoreLogIn/stressBeforeLog.js";
+// import Mindfullness from "./componenet/begoreLogIn/mindfullness.js";
 export const QouteCategorylist = createContext();
 function App(){
    const [state,dispatch] = useReducer((state,action)=>{
@@ -81,7 +82,7 @@ const loadQouteCategory = async()=>{
       <Route path = "/personalplan" element = {< PersonalPlan/>}/>
        <Route path="/routine" element={<BuildInRoutine />} />
         <Route path="/routinelist/:tag" element={<RoutineList />} />
-         <Route path="/journal" element={<Jouranl />} />
+         {/* <Route path="/journal" element={<Jouranl />} /> */}
         <Route path="/mood" element={<Mood/>}/>
         <Route path = "/profile" element = {<Profile/>} />
         <Route path = "/qoute" element={<Qoute />}/>
@@ -111,9 +112,9 @@ const loadQouteCategory = async()=>{
           <Route path="/createArticle" element = {<CreateArticle/>}/>
           <Route path = "/articleDetail/:id" element ={<ArticleDetails/>}/>
           <Route path ="/breathing" element = {<Breathing/>}/>
-          <Route path = "/sleep"  element = {<SleepBeforeLogIn/>}/>
+          {/* <Route path = "/sleep"  element = {<SleepBeforeLogIn/>}/>
           <Route path = "/Stress" element = {<StressBL/>}/>
-          <Route path = "/mindfullness" element = {<Mindfullness/>}/>
+          <Route path = "/mindfullness" element = {<Mindfullness/>}/> */}
           
     </Routes>
   </Router>
