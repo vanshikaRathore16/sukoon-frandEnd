@@ -43,7 +43,7 @@ function PersonalPlan() {
       <div
         className="d-flex justify-content-center align-items-center vh-100"
         style={{
-          background: "linear-gradient(135deg, #667eea, #764ba2)",
+          background: "linear-gradient(135deg, #095207ff, #75c998ff)",
           padding: "20px",
         }}
       >
@@ -52,7 +52,7 @@ function PersonalPlan() {
           style={{
             backgroundColor: "#ffffff",
             width: "100%",
-            maxWidth: "450px",
+            maxWidth: "80%",
             boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
           }}
         >
@@ -111,18 +111,18 @@ function PersonalPlan() {
               className="btn w-100 rounded-pill text-white fw-bold"
               style={{
                 background:
-                  "linear-gradient(90deg, #667eea, #764ba2)",
+                  "linear-gradient(90deg, #0c972aff, #1c884dff)",
                 padding: "10px 0",
                 fontSize: "16px",
                 transition: "all 0.3s ease",
               }}
               onMouseOver={(e) =>
                 (e.target.style.background =
-                  "linear-gradient(90deg, #764ba2, #667eea)")
+                  "linear-gradient(90deg, #088008ff, #044b1cff)")
               }
               onMouseOut={(e) =>
                 (e.target.style.background =
-                  "linear-gradient(90deg, #667eea, #764ba2)")
+                  "linear-gradient(90deg, #4ca051ff, #188b2cff)")
               }
             >
               Submit

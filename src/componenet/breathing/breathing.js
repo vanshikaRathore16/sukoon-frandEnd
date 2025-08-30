@@ -1,139 +1,181 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-const exercises = [
-  { 
-    name: "Relax", gradient: "linear-gradient(135deg, #4fc3f7, #81d4fa)", pattern: "Inhale 4 → Exhale 6", 
-    purpose: "Calm the nervous system", 
-    benefits: ["Lowers heart rate","Reduces anxiety","Promotes relaxation"], 
-    instructions: ["Sit comfortably","Inhale 4s","Exhale 6s","Repeat 5–10 cycles"] 
-  },
-  { 
-    name: "Balance", gradient: "linear-gradient(135deg, #81c784, #a5d6a7)", pattern: "4-2-4", 
-    purpose: "Harmonizes mind and body", 
-    benefits: ["Balances oxygen & CO₂","Stabilizes emotions","Enhances focus"], 
-    instructions: ["Sit or lie comfortably","Inhale 4s","Hold 2s","Exhale 4s","Repeat 5–10 rounds"] 
-  },
-  { 
-    name: "Restore", gradient: "linear-gradient(135deg, #ffb74d, #ffe082)", pattern: "5-5", 
-    purpose: "Restores energy", 
-    benefits: ["Activates parasympathetic system","Reduces tension","Improves oxygen flow"], 
-    instructions: ["Sit comfortably","Inhale 5s","Exhale 5s","Repeat 5–10 cycles"] 
-  },
-  { 
-    name: "Focus", gradient: "linear-gradient(135deg, #ba68c8, #ce93d8)", pattern: "4-4-4-4", 
-    purpose: "Improves clarity", 
-    benefits: ["Calms mind","Reduces stress","Enhances concentration"], 
-    instructions: ["Sit upright","Inhale 4s","Hold 4s","Exhale 4s","Hold 4s","Repeat 5–8 rounds"] 
-  },
-  { 
-    name: "Energize", gradient: "linear-gradient(135deg, #f06292, #f48fb1)", pattern: "4-2", 
-    purpose: "Boosts energy", 
-    benefits: ["Increases oxygen","Awakens body","Improves focus"], 
-    instructions: ["Sit upright","Inhale 4s","Exhale 2s","Repeat 10–15 cycles"] 
-  },
-  { 
-    name: "Unwind", gradient: "linear-gradient(135deg, #4db6ac, #80cbc4)", pattern: "4-7-8", 
-    purpose: "Deep relaxation", 
-    benefits: ["Reduces stress hormones","Helps sleep","Relieves tension"], 
-    instructions: ["Sit or lie comfortably","Inhale 4s","Hold 7s","Exhale 8s","Repeat 4–6 rounds"] 
-  },
-];
+export default function BubbleContainer() {
+  const [scale, setScale] = useState(1);
+  const [phase, setPhase] = useState("inhale");
+  const [isRunning, setIsRunning] = useState(false);
 
-function BreathingLandingPage() {
-  const [runningSection, setRunningSection] = useState(null);
-  const [phaseIndexes, setPhaseIndexes] = useState(Array(exercises.length).fill(0));
-  const [circleScales, setCircleScales] = useState(Array(exercises.length).fill(1));
-
-  const phases = [
-    { name: "Breathe In", duration: 4000, scale: 1.2 },
-    { name: "Hold", duration: 7000, scale: 1.2 },
-    { name: "Breathe Out", duration: 8000, scale: 0.8 },
-  ];
+  const inhaleDuration = 4000;
+  const holdDuration = 4000;
+  const exhaleDuration = 6000;
 
   useEffect(() => {
-    if (runningSection === null) return;
-    let currentPhase = phaseIndexes[runningSection];
-    let startTime = Date.now();
-    let requestId;
+    if (!isRunning) return;
+
+    let start = Date.now();
+    let animationFrame;
 
     const animate = () => {
       const now = Date.now();
-      const elapsed = now - startTime;
-      const phaseDuration = phases[currentPhase].duration;
+      const elapsed = now - start;
 
-      const startScale = currentPhase === 0 ? 1 : phases[(currentPhase - 1 + phases.length) % phases.length].scale;
-      const endScale = phases[currentPhase].scale;
+      let duration;
+      if (phase === "inhale") duration = inhaleDuration;
+      else if (phase === "hold") duration = holdDuration;
+      else duration = exhaleDuration;
 
-      setCircleScales((prev) => prev.map((s, idx) => (idx === runningSection ? startScale + (endScale - startScale) * (elapsed / phaseDuration) : s)));
+      const progress = Math.min(elapsed / duration, 1);
 
-      if (elapsed >= phaseDuration) {
-        currentPhase = (currentPhase + 1) % phases.length;
-        setPhaseIndexes((prev) => prev.map((p, idx) => (idx === runningSection ? currentPhase : p)));
-        startTime = Date.now();
+      let target;
+      if (phase === "inhale") target = 1 + 0.4 * progress; // grow bubble
+      else if (phase === "hold") target = 1.4; // keep bubble expanded
+      else target = 1.4 - 0.4 * progress; // shrink bubble
+
+      setScale(target);
+
+      if (progress >= 1) {
+        if (phase === "inhale") setPhase("hold");
+        else if (phase === "hold") setPhase("exhale");
+        else setPhase("inhale");
+
+        start = Date.now();
       }
 
-      requestId = requestAnimationFrame(animate);
+      animationFrame = requestAnimationFrame(animate);
     };
 
-    requestId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(requestId);
-  }, [runningSection]);
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [phase, isRunning]);
+
+  const getPhaseText = () => {
+    if (phase === "inhale") return "Breathe in";
+    else if (phase === "hold") return "Hold";
+    else return "Breathe out";
+  };
 
   return (
-    <div style={{
-      scrollSnapType: "y mandatory",
-      overflowY: "scroll",
-      height: "100vh",
-    }}>
-      {exercises.map((ex, idx) => (
-        <div key={idx} style={{ 
-          height: "100vh",
-          scrollSnapAlign: "start",
+    <>
+      {/* Deep Breathing Info Section */}
+      <div className="min-vh-100 d-flex flex-column align-items-center justify-content-start px-4 py-5 bg-light">
+        <h1 className="display-4 fw-bold text-dark mb-4">Deep breathing</h1>
+
+        <p className="fs-5 text-secondary text-center mb-4 w-75">
+          Deep breathing is a simple relaxation technique that helps you feel
+          better when you’re stressed.
+        </p>
+
+        <p className="text-muted text-center mb-4 w-75">
+          This tool will show you how to do a deep breathing exercise sometimes
+          called square breathing. When you’ve got the hang of it, you can do it
+          almost anywhere you feel stressed: at home, at work or in public.
+        </p>
+
+        <div
+          className="card shadow-sm rounded-4 p-4 w-100"
+          style={{ maxWidth: "700px" }}
+        >
+          <h2 className="h4 fw-semibold mb-3">There are four easy steps:</h2>
+          <ol className="ps-3 text-secondary">
+            <li>Breathe in deeply for around four seconds</li>
+            <li>Hold your breath for around four seconds</li>
+            <li>Breathe out for around four seconds</li>
+            <li>Hold your breath for around four seconds</li>
+          </ol>
+        </div>
+
+        <p className="text-muted mt-4 text-center">
+          Repeat this for a few minutes or until you start feeling better.
+        </p>
+
+        <button className="btn btn-primary position-fixed bottom-0 end-0 m-4 rounded-pill shadow">
+          Chat Live
+        </button>
+      </div>
+
+      {/* Bubble Breathing Exercise Section */}
+      <div
+        style={{
+          margin: "40px",
+          height: "500px",
+          background: "#1e3d59",
+          borderRadius: "20px",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          background: ex.gradient,
-          padding: "40px",
-          boxSizing: "border-box"
-        }}>
-          {/* Circle */}
-          <div style={{ width: "250px", height: "250px", borderRadius: "50%", background: ex.gradient, transform: `scale(${circleScales[idx]})`, transition: "transform 0.1s linear", position: "relative", overflow: "hidden", boxShadow: "0 0 35px rgba(255,255,255,0.5)" }}>
-            <div style={{ width: "200px", height: "200px", borderTop: "8px solid rgba(255,255,255,0.5)", borderRadius: "50%", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%) rotate(0deg)", animation: runningSection === idx ? "semiRotate 6s linear infinite" : "none" }}></div>
-            <div style={{ width: "20px", height: "20px", borderRadius: "50%", backgroundColor: "white", position: "absolute", top: "50%", left: "50%", transform: `translate(-50%, -125px) rotate(0deg)`, transformOrigin: "50% 125px", animation: runningSection === idx ? "rotate 4s linear infinite" : "none" }}></div>
-            <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontSize: "24px", fontWeight: "bold", color: "#fff", textShadow: "0 2px 10px rgba(0,0,0,0.3)" }}>{phases[phaseIndexes[idx]].name}</div>
-          </div>
-
-          {/* Start/End Button */}
-          <div style={{ marginTop: "20px" }}>
-            {runningSection === idx ? <button onClick={() => setRunningSection(null)} className="btn btn-danger">End</button> : <button onClick={() => setRunningSection(idx)} className="btn btn-primary">Start</button>}
-          </div>
-
-          {/* Details below */}
-          <div style={{ width: "80%", maxWidth: "650px", marginTop: "30px", textAlign: "left", background: "linear-gradient(135deg, #fff, #f0f4f8)", borderRadius: "25px", padding: "30px", boxShadow: "0 15px 35px rgba(0,0,0,0.15)", border: "2px solid rgba(255,255,255,0.6)" }}>
-            <h2 style={{ color: "#333", fontWeight: "700" }}>{ex.name}</h2>
-            <p><strong>Pattern:</strong> {ex.pattern}</p>
-            <p><strong>Purpose:</strong> {ex.purpose}</p>
-            <p><strong>Benefits:</strong></p>
-            <ul>{ex.benefits.map((b, i) => <li key={i}>{b}</li>)}</ul>
-            <p><strong>Instructions:</strong></p>
-            <ol>{ex.instructions.map((inst, i) => <li key={i}>{inst}</li>)}</ol>
+          position: "relative",
+          padding: "20px",
+          overflow: "hidden",
+        }}
+      >
+        {/* Bubble container */}
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {/* Bubble */}
+          <div
+            style={{
+              width: "200px",
+              height: "200px",
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.8)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transform: `scale(${scale})`,
+              transformOrigin: "center center",
+              transition: "transform 0.1s linear",
+            }}
+          >
+            <span style={{ color: "#333", fontSize: "20px" }}>
+              {getPhaseText()}
+            </span>
           </div>
         </div>
-      ))}
 
-      <style>{`
-        @keyframes rotate {
-          0% { transform: translate(-50%, -125px) rotate(0deg); }
-          100% { transform: translate(-50%, -125px) rotate(360deg); }
-        }
-        @keyframes semiRotate {
-          0% { transform: translate(-50%, -50%) rotate(0deg); }
-          100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-      `}</style>
-    </div>
+        {/* Buttons */}
+        <div
+          style={{
+            display: "flex",
+            gap: "20px",
+            justifyContent: "center",
+            position: "absolute",
+            bottom: "20px",
+            width: "100%",
+          }}
+        >
+          <button
+            onClick={() => setIsRunning(true)}
+            style={{
+              padding: "10px 20px",
+              borderRadius: "8px",
+              border: "none",
+              background: "#4caf50",
+              color: "#fff",
+              cursor: "pointer",
+            }}
+          >
+            Start
+          </button>
+          <button
+            onClick={() => setIsRunning(false)}
+            style={{
+              padding: "10px 20px",
+              borderRadius: "8px",
+              border: "none",
+              background: "#f44336",
+              color: "#fff",
+              cursor: "pointer",
+            }}
+          >
+            Stop
+          </button>
+        </div>
+      </div>
+    </>
   );
 }
-
-export default BreathingLandingPage;

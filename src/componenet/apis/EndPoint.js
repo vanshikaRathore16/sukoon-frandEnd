@@ -1,11 +1,18 @@
-import Article from "../article/article";
+
 
 export const BASE_URL = "http://localhost:3000";
 export default{
     SIGN_UP : BASE_URL+"/user/create",
     SiGN_IN : BASE_URL+"/user/authUser",
+    // self relation part
     GETMOODOPTION : BASE_URL+"/mood/getMoodOptions",
     SUBMITMOOD  : BASE_URL + "/mood/create",
+    SUBMITNOTE  : BASE_URL + "/mood/note",
+    SUBMITGRATITUDES : BASE_URL + "/mood/submitGratitudes",
+    GETONLYMOOD : (id) => `${BASE_URL}/mood/getMood/${id}`,
+    GETONLYNOTES : (id) => `${BASE_URL}/mood/getNote/${id}`,
+    
+    
     QOUTE_CATEGORY : BASE_URL + "/quote/QouteCategory",
     Qoute_BY_CATEGORY : BASE_URL +"/quote/quoteByCategory",
     ADD_POSE : BASE_URL + "/pose/create",
@@ -18,6 +25,7 @@ export default{
     ROUTINE_GET_BY_ID : BASE_URL + "/routine/getById",
     ADD_TO_FAVORITE : BASE_URL + "/favorite/create",
     LIST_FAVORITE  : (userId) => `${BASE_URL}/favorite/list/${userId}`,
+    // update profile
     UPDATE_PROFILE  : BASE_URL + "/user/profile",
     USER_ROUTINE_LIST : (userId) => `${BASE_URL}/favorite/routineList/${userId}`,
     FAVORITE_BY_ID : (id) => `${BASE_URL}/favorite/favorite/${id}`,
@@ -38,9 +46,18 @@ export default{
     MEDITATION_FORM : BASE_URL + "/medidation/add",
     GETMEDITATION : BASE_URL + "/medidation/getMedidationFromDB",
     // create by admin
+    //  article 
+    GETARTICLETAGS : BASE_URL + "/article/allowedtags",
     CREATE_ARTICLE  : BASE_URL + "/article/create",
     GET_ARTICLE : BASE_URL + "/article/get",
-    ARTICLE_BY_ID : (id) => `${BASE_URL}/article/${id}`
+    ARTICLE_BY_ID : (id) => `${BASE_URL}/article/${id}`,
+    GETARTICLEBYTAG : (tag) => `${BASE_URL}/article/tags/${tag}`,
 
-
+    // home
+    RECCOMENDMEDIDATION : (userId) => `${BASE_URL}/mood/getMetidationByLastMood/${userId}`,
+    RECCOMENDARTICLE  : (userId) => `${BASE_URL}/mood/getArticlesByLastMood/${userId}`,
+    SLEEP_MEDIDATION_FOR_BL  : BASE_URL + "/medidation/getRondomMeditationSleepStory",
+    soundScapes_FOR_BL  : BASE_URL + "/medidation/getRondomSoundscapes",
+    PADCAST_FOR_BL : BASE_URL + "/medidation/getRondomPadcast"
+     
 }

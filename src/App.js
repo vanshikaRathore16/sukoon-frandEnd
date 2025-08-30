@@ -40,6 +40,9 @@ import MeditationList from "./componenet/medidation/newMedidationpage.js";
 import CreateArticle from "./componenet/admin/Adminarticle.js";
 import ArticleDetails from "./componenet/article/artileDetails.js";
 import Breathing from "./componenet/breathing/breathing.js"
+import SleepBeforeLogIn from "./componenet/begoreLogIn/sleepBL.js";
+import StressBL from "./componenet/begoreLogIn/stressBeforeLog.js";
+import Mindfullness from "./componenet/begoreLogIn/mindfullness.js";
 export const QouteCategorylist = createContext();
 function App(){
    const [state,dispatch] = useReducer((state,action)=>{
@@ -108,6 +111,10 @@ const loadQouteCategory = async()=>{
           <Route path="/createArticle" element = {<CreateArticle/>}/>
           <Route path = "/articleDetail/:id" element ={<ArticleDetails/>}/>
           <Route path ="/breathing" element = {<Breathing/>}/>
+          <Route path = "/sleep"  element = {<SleepBeforeLogIn/>}/>
+          <Route path = "/Stress" element = {<StressBL/>}/>
+          <Route path = "/mindfullness" element = {<Mindfullness/>}/>
+          
     </Routes>
   </Router>
   

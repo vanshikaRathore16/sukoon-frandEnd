@@ -6,32 +6,17 @@ import axios from "axios";
 import EndPoint from "./apis/EndPoint.js";
 import { useContext,useEffect } from "react";
 import { toast } from "react-toastify";
-const reviews = [
-  {
-    id: 1,
-    text: "My family loves Calm! Out of the three meditation apps I have on my phone, Calm is the one I actually use.",
-    user: "Kristie from Irvine",
-    rating: 5,
-  },
-  {
-    id: 2,
-    text: "Calm cuts through my stress, anxiety, irregular sleep schedule and brings me to deep sleep. I usually fall asleep within 5 minutes.",
-    user: "Mathieu from New Orleans",
-    rating: 5,
-  },
-  {
-    id: 3,
-    text: "I have tried many meditation apps, but Calm has the best techniques and guided meditations.",
-    user: "Jen from Boston",
-    rating: 4.5,
-  },
-];
-
+import { getCurrentUser } from "./auth/auth.js";
 function Home(){
   //   rondim qoutes 
+  let user = getCurrentUser();
+  let userId = user._id;
   const [open, setOpen] = useState(null);
-    const [quote, setQuote] = useState(null);
-    const[approve,setApprove] = useState([]);
+  const [quote, setQuote] = useState(null);
+  const[approve,setApprove] = useState([]);
+  const[metidation,setMetidation] = useState([]);
+  const[artice,setArticle] = useState([]);
+    // rondom qoute
     const fetchQuote = async () => {
     try {
       const response = await axios.get(EndPoint.RONDOM_QOUTE);
@@ -45,6 +30,8 @@ function Home(){
   useEffect(() => {
     approveList();
     fetchQuote();
+    fatchMedation();
+    fatchArticle();
     const intervalId = setInterval(() => {
       fetchQuote();
     }, 120000); 
@@ -79,13 +66,34 @@ function Home(){
     setOpen(id); // open the clicked FAQ
   }
 };
+    //  fatch metidation
+    const fatchMedation = async()=>{
+      try{
+         let responce = await axios.get(EndPoint.RECCOMENDMEDIDATION(userId));
+         console.log("recoomend meditation = ",responce.data);
+         setMetidation(responce.data.recommendedMeditations);
+         console.log("set metidation ", metidation);
+      }catch(err){
+        console.log(err);
+     }
+    } 
 
+    // fatch article
+    const fatchArticle =async()=>{
+      try{
+         let responce = await axios.get(EndPoint.RECCOMENDARTICLE(userId));
+         console.log("article by mood" , responce.data);
+         setArticle(responce.data.article);
+      }catch(err){
+        console.log(err);
+      }
+    }
     return<>
         <Header/>
         {/* hero section */}
         <div className="hero-section">
             <img
-              src = "/image/FPhero.png"
+              src = "/image/homeimage.jpg"
               alt = "yoga girl"
             />
             <div className="hero-overlay"></div>
@@ -95,166 +103,286 @@ function Home(){
 
             </div>
         </div>
-        {/* what you find incide the sukoon */}
-        <section className="text-center py-5">
-            <h1> What You'll Find Inside Sukoon</h1>
-            <p className="text-muted">Discover Our Mindful Program</p>
-              </section>
-              <section>
-                {/* fisrt */}
-               <div className="feature-section">
-                    <div className="feature-text">
-                        <h5>1000+ Yoga Poses. One Journey to Peace.</h5>
-                         <p>
-                      Sukoon is your personal wellness app to build a daily routine. You can
-                      access 1000+ yoga poses customized to your comfort level. Whether you're
-                    a beginner or advanced, Sukoon makes your journey easier.
-                     </p>
-                     <Link to="/signup" className="btn btn-success">learn more</Link>
-                    </div>
-                    <div className="feature-image">
-                        <img
-                        src = "/image/FB1.png"
-                        alt = "image"
-                        
-                        />
-                    </div>
-                </div>
-                {/* second */}
-                 <div className="feature-section">
-                     <div className="feature-image">
-                        <img
-                        src = "/image/FP2.png"
-                        alt = "image"
-                        
-                        />
-                    </div>
-                    <div className="feature-text">
-                        <h5>Personalized Routine</h5>
-                         <p>
-                     At Sukoon, we understand that every journey is unique. That’s why we offer personalized wellness routines tailored to your goals, fitness level, and available time. Simply share your preferences and we’ll create a calming, energizing, or healing routine just for you. It’s your self-care — thoughtfully crafted to support your lifestyle and emotional needs.
+       
+         {/* meditatio by mood */}
+         <div
+  style={{
+    padding: "4rem 1rem", // 4rem top & bottom, 1rem left & right
+    maxWidth: "1200px",
+    margin: "0 auto",
+  }}
+>
+  <h2 
+  style={{
+    fontSize: "35px",       // text-2xl
+    fontWeight: "bold",     // font-bold
+    textAlign: "center",    // text-center
+    marginBottom: "50px",   // mb-8
+    paddingTop: "32px",     // pt-8
+    color : "#003366"
+  }}
+>
+  Recommended Meditations
+</h2>
 
+    
+  <div
+    className="d-flex flex-nowrap overflow-auto"
+    style={{ gap: "1.5rem", paddingBottom: "1rem" }}
+  >
+    {metidation.length > 0 ? (
+      metidation.map((med, index) => (
+        <div
+          key={index}
+          className="card"
+          style={{
+            minWidth: "280px",
+            maxWidth: "280px",
+            backgroundColor: "white",
+            borderRadius: "1rem",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            transition: "transform 0.3s, box-shadow 0.3s",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translateY(-6px)";
+            e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.2)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
+          }}
+        >
+          {/* ✅ Consistent Image at Top */}
+          {med.imageURL && (
+            <img
+              src={med.imageURL}
+              alt={med.title || "Meditation"}
+              style={{
+                width: "100%",
+                height: "180px",
+                objectFit: "cover",
+              }}
+            />
+          )}
 
-                     </p>
-                     <Link to="/signup" className="btn btn-success">learn more</Link>
-                    </div>
-                   
-                </div>
-                {/* third */}
-                <div className="feature-section">
-                    <div className="feature-text">
-                        <h5>Built-in Routines</h5>
-                         <p>
-                     Not sure where to begin? Our pre-built routines are here to guide you. Whether you want a morning energy boost, evening relaxation, or a quick 10-minute stretch, we’ve designed ready-made sequences to fit your mood and schedule. These professionally curated plans help you stay consistent, even on busy days, and build long-term habits with ease.
-                     </p>
-                     <Link to="/signup" className="btn btn-success">learn more</Link>
-                    </div>
-                    <div className="feature-image">
-                        <img
-                        src = "/image/FB3.png"
-                        alt = "image"
-                        
-                        />
-                    </div>
-                </div>
-                {/* forth */}
-                 <div className="feature-section">
-                     <div className="feature-image">
-                        <img
-                        src = "/image/FB4.png"
-                        alt = "image"
-                        
-                        />
-                    </div>
-                    <div className="feature-text">
-                        <h5>Mood Tracker</h5>
-                         <p>
-                     Your emotions matter — and they deserve to be heard. Our beautifully designed mood tracker allows you to log how you’re feeling each day, offering insight into your mental and emotional patterns. Over time, you’ll notice how your moods connect to your routines, and you’ll feel more in control, aware, and grounded in your daily life.
-                     </p>
-                     <Link to="/signup" className="btn btn-success">learn more</Link>
-                    </div>
-                   
-                </div>
-                {/* fifth */}
-                 <div className="feature-section">
-                    <div className="feature-text">
-                        <h5>Guided Journaling</h5>
-                         <p>
-                     Turn your thoughts into clarity with our guided journaling space. Whether you’re celebrating a good day or processing a tough one, our prompts help you reflect, release, and reset. Writing becomes a form of therapy — private, powerful, and personal. It’s more than journaling; it’s a conversation with your inner self.
-                     </p>
-                     <Link to="/signup" className="btn btn-success">learn more</Link>
-                    </div>
-                    <div className="feature-image">
-                        <img
-                        src = "/image/FB5.png"
-                        alt = "image"
-                        
-                        />
-                    </div>
-                </div>
-                 {/* forth */}
-                 <div className="feature-section">
-                     <div className="feature-image">
-                        <img
-                        src = "/image/FB6.png"
-                        alt = "image"
-                        
-                        />
-                    </div>
-                    <div className="feature-text">
-                        <h5>Quotes for Every Mood</h5>
-                         <p>
-                    Sometimes, a few simple words can shift your whole day. That’s why Sukoon brings you handpicked quotes across all emotional states — from gratitude and hope to love, courage, and healing. Let inspiring words find you when you need them most and remind you that you’re never alone on this journey.
-                     </p>
-                     <Link to="/signup" className="btn btn-success">learn more</Link>
-                    </div>
-                   
-                </div>
-                {/* fifth */}
-                 <div className="feature-section">
-                    <div className="feature-text">
-                        <h5> Mindful Meditation</h5>
-                         <p>
-                    Quiet your mind and return to the present moment with our library of guided meditations. Whether you’re seeking better sleep, improved focus, or emotional healing, our sessions are designed to help you breathe deeper and live lighter. Meditation isn’t just a practice — with Sukoon, it becomes a peaceful daily ritual.
+          {/* ✅ Card Content */}
+          <div style={{ padding: "1rem", flex: 1 }}>
+            <h3
+              style={{
+                fontSize: "1.2rem",
+                fontWeight: "600",
+                color: "#222",
+                marginBottom: "0.5rem",
+              }}
+            >
+              {med.title || "Untitled Meditation"}
+            </h3>
 
+            {med.description && (
+              <p
+                style={{
+                  color: "#555",
+                  marginBottom: "0.75rem",
+                  fontSize: "0.9rem",
+                  lineHeight: "1.4",
+                }}
+              >
+                {med.description}
+              </p>
+            )}
 
-                     </p>
-                     <Link to="/signup" className="btn btn-success">learn more</Link>
-                    </div>
-                    <div className="feature-image">
-                        <img
-                        src = "/image/FB7.png"
-                        alt = "image"
-                        
-                        />
-                    </div>
-                </div>
-            </section>
-      
-        {/* how sukoon transorm you */}
-        <section className="py-5">
-         <h4 className="text-center mb-4">how sukoon transorm you</h4>
-         <div className="container">
-            <div className="row text-center">
-                <div className="col-md-4">
-                    <div className="p-4 rounded" style={{ backgroundColor: "#caffbf" }}>
-                        Create Your Peaceful Routine
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <div className="p-4 rounded" style={{ backgroundColor: "#bdb2ff" }}>
-                        Create Your Peaceful Routine
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <div className="p-4 rounded" style={{ backgroundColor: "#ffd6a5" }}>
-                        Create Your Peaceful Routine
-                    </div>
-                </div>
+            <div
+              style={{
+                fontSize: "0.85rem",
+                color: "#666",
+                marginBottom: "0.75rem",
+              }}
+            >
+              {med.author && (
+                <p>
+                  <span style={{ fontWeight: "500" }}>Author:</span> {med.author}
+                </p>
+              )}
+              {med.type?.length > 0 && (
+                <p>
+                  <span style={{ fontWeight: "500" }}>Type:</span>{" "}
+                  {med.type.join(", ")}
+                </p>
+              )}
+              {med.mood?.length > 0 && (
+                <p>
+                  <span style={{ fontWeight: "500" }}>Mood:</span>{" "}
+                  {med.mood.join(", ")}
+                </p>
+              )}
             </div>
-         </div>
-        </section>
-        <div className="quete-section">
+
+            {/* ✅ Audio at Bottom */}
+            {med.audioURL && (
+              <audio
+                controls
+                style={{ width: "100%" }}
+                src={med.audioURL}
+                title={med.title || "Meditation Audio"}
+              >
+                Your browser does not support the audio element.
+              </audio>
+            )}
+
+            {med.podcast && (
+              <p
+                style={{
+                  marginTop: "0.5rem",
+                  fontSize: "0.85rem",
+                  color: "#666",
+                }}
+              >
+                <span style={{ fontWeight: "500" }}>Podcast:</span>{" "}
+                {med.podcast}
+              </p>
+            )}
+          </div>
+        </div>
+      ))
+    ) : (
+      <p
+        style={{
+          color: "#666",
+          textAlign: "center",
+          width: "100%",
+          fontSize: "1rem",
+        }}
+      >
+        No meditations found.
+      </p>
+    )}
+  </div>
+</div>
+
+        {/* how sukoon transorm you */}
+      
+      {/* How Sukoon Transforms You */}
+      <section style={{ padding: "2rem 0", backgroundColor: "#f8f9fa" }}>
+        <h2
+          style={{
+            textAlign: "center",
+            fontSize: "1.75rem",
+            fontWeight: "bold",
+            marginBottom: "1.5rem",
+            color: "#333",
+          }}
+        >
+          Discover Your Path to Peace with Sukoon
+        </h2>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 15px" }}>
+          <div className="row">
+            <div className="col-md-4 mb-3">
+              <Link
+                to="/qoute"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <div
+                  className="card"
+                  style={{
+                    padding: "1.5rem",
+                    borderRadius: "0.5rem",
+                    backgroundColor: "#caffbf",
+                    textAlign: "center",
+                    transition: "transform 0.3s, box-shadow 0.3s",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "scale(1.05)";
+                    e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+                  }}
+                >
+                  <h4 style={{ fontWeight: "600", marginBottom: "0.5rem", fontSize: "1.25rem", color: "#1a2e57" }}>
+                    Daily Inspiration
+                  </h4>
+                  <p style={{ fontSize: "0.875rem", color: "#555" }}>
+                    A daily inspirational quote to uplift your mood and set a positive tone.
+                  </p>
+                </div>
+              </Link>
+            </div>
+            <div className="col-md-4 mb-3">
+              <Link
+                to="/aboutus"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <div
+                  className="card"
+                  style={{
+                    padding: "1.5rem",
+                    borderRadius: "0.5rem",
+                    backgroundColor: "#bdb2ff",
+                    textAlign: "center",
+                    transition: "transform 0.3s, box-shadow 0.3s",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "scale(1.05)";
+                    e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+                  }}
+                >
+                  <h4 style={{ fontWeight: "600", marginBottom: "0.5rem", fontSize: "1.25rem", color: "#1a2e57" }}>
+                    Session Timer
+                  </h4>
+                  <p style={{ fontSize: "0.875rem", color: "#555" }}>
+                    A customizable timer to track your meditation or yoga sessions with ease.
+                  </p>
+                </div>
+              </Link>
+            </div>
+            <div className="col-md-4 mb-3">
+              <Link
+                to="/breathing"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <div
+                  className="card"
+                  style={{
+                    padding: "1.5rem",
+                    borderRadius: "0.5rem",
+                    backgroundColor: "#ffd6a5",
+                    textAlign: "center",
+                    transition: "transform 0.3s, box-shadow 0.3s",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "scale(1.05)";
+                    e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0,               }}
+                >
+                  <h4 style={{ fontWeight: "600", marginBottom: "0.5rem", fontSize: "1.25rem", color: "#1a2e57" }}>
+                    Breathing Exercises
+                  </h4>
+                  <p style={{ fontSize: "0.875rem", color: "#555" }}>
+                    Guided breathing exercises to promote relaxation and mindfulness.
+                  </p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+          {/*  qoute */}  
+        <div className="quete-section ">
             <img
               src = "/image/FB8.png"
               alt = "yoga girl"
@@ -265,6 +393,119 @@ function Home(){
                 <p className="lead">{quote?.author}</p>
             </div>
         </div>
+        {/* article by mood */}
+            <div className="container my-5">
+      <h3 className="mb-4 text-center fw-bold" style={{ color: "#0d6efd" }}>
+        Articles Based on Your Mood
+      </h3>
+
+      <div
+        className="d-flex overflow-auto"
+        style={{
+          gap: "20px",
+          paddingBottom: "15px",
+          paddingTop: "10px",
+        }}
+      >
+        {artice && artice.length > 0 ? (
+          artice.map((article) => (
+            <div
+              key={article._id}
+              className="card shadow-lg"
+              style={{
+                minWidth: "320px",
+                maxWidth: "320px",
+                borderRadius: "15px",
+                flex: "0 0 auto",
+                transition: "transform 0.3s, box-shadow 0.3s",
+              }}
+            >
+              {/* Article Image with overlay */}
+              {article.Image && (
+                <div
+                  style={{
+                    position: "relative",
+                    height: "180px",
+                    overflow: "hidden",
+                    borderTopLeftRadius: "15px",
+                    borderTopRightRadius: "15px",
+                  }}
+                >
+                  <img
+                    src={article.Image}
+                    alt={article.title}
+                    className="card-img-top"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      transition: "transform 0.5s",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      background:
+                        "linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3))",
+                    }}
+                  ></div>
+                </div>
+              )}
+
+              <div className="card-body d-flex flex-column">
+                {/* Title */}
+                <h5
+                  className="card-title fw-bold"
+                  style={{ minHeight: "48px", color: "#0d6efd" }}
+                >
+                  {article.title}
+                </h5>
+
+                {/* Description */}
+                <p className="card-text text-muted flex-grow-1">
+                  {article.description.length > 80
+                    ? article.description.slice(0, 80) + "..."
+                    : article.description}
+                </p>
+
+                {/* Read More Button */}
+                <Link
+                  to={`/articleDetail/${article._id}`}
+                  className="btn btn-primary mt-2"
+                  style={{
+                    borderRadius: "50px",
+                    fontWeight: "500",
+                    padding: "6px 18px",
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  Read More
+                </Link>
+              </div>
+
+              {/* Card Hover Effect */}
+              <style>
+                {`
+                  .card:hover {
+                    transform: translateY(-6px);
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                  }
+                  .card img:hover {
+                    transform: scale(1.05);
+                  }
+                `}
+              </style>
+            </div>
+          ))
+        ) : (
+          <p className="text-muted">No articles found for your mood 😔</p>
+        )}
+      </div>
+    </div>
         {/* feedvback form */}
         <section style={{ background: "#f0f4f9", padding: "2rem 0" }}>
       <h2

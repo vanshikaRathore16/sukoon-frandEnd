@@ -13,12 +13,12 @@ function Header() {
     <nav
       className="navbar navbar-expand-lg"
       style={{
-        background: "linear-gradient(90deg, #111213ff, #030303ff)",
-        padding: "15px 30px",
+        background: "#ffffff",
+        padding: "18px 40px",
         position: "sticky",
         top: "0",
         zIndex: "1000",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+        boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
       }}
     >
       {/* Logo */}
@@ -26,14 +26,15 @@ function Header() {
         className="navbar-brand fw-bold fs-3"
         to="/"
         style={{
-          color: "#fff",
-          letterSpacing: "1px",
+          color: "#003366",
+          letterSpacing: "1.5px",
+          fontWeight: "700",
         }}
       >
         Sukoon
       </Link>
 
-      {/* Left Navigation */}
+      {/* Navigation */}
       <div className="d-flex gap-4 align-items-center flex-grow-1 ms-5">
         {[
           ["Home", "/home"],
@@ -42,27 +43,25 @@ function Header() {
           ["Pose", "/pose"],
           ["Personal Plan", "/personalplan"],
           ["Routine", "/routine"],
-          ["breathing", "/breathing"],
+          ["Breathing", "/breathing"],
           ["Article", "/article"],
           ["About Us", "/aboutus"],
-          ["new mwtation", "/GETMEDITATION"],
+          ["New Meditation", "/GETMEDITATION"],
         ].map(([label, path]) => (
           <Link
             key={path}
             to={path}
             className="nav-link"
             style={{
-              color: "#fff",
+              color: "#333",
               fontWeight: "500",
-              transition: "color 0.3s, transform 0.3s",
+              transition: "color 0.3s ease",
             }}
             onMouseEnter={(e) => {
-              e.target.style.color = "#f1f1f1";
-              e.target.style.transform = "scale(1.05)";
+              e.target.style.color = "#003366";
             }}
             onMouseLeave={(e) => {
-              e.target.style.color = "#fff";
-              e.target.style.transform = "scale(1)";
+              e.target.style.color = "#333";
             }}
           >
             {label}
@@ -72,38 +71,19 @@ function Header() {
 
       {/* Right Side */}
       <div className="d-flex gap-3 align-items-center">
-        {/* <Link
-          to="/favorite"
-          className="nav-link fs-5"
-          style={{
-            color: "#fff",
-            transition: "transform 0.3s, color 0.3s",
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.color = "#f1f1f1";
-            e.target.style.transform = "scale(1.2)";
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.color = "#fff";
-            e.target.style.transform = "scale(1)";
-          }}
-        >
-          <i className="bi bi-heart-fill"></i>
-        </Link> */}
-
         <Link
           to="/profile"
           className="nav-link fs-5"
           style={{
-            color: "#fff",
-            transition: "transform 0.3s, color 0.3s",
+            color: "#333",
+            transition: "color 0.3s, transform 0.3s",
           }}
           onMouseEnter={(e) => {
-            e.target.style.color = "#f1f1f1";
+            e.target.style.color = "#003366";
             e.target.style.transform = "scale(1.2)";
           }}
           onMouseLeave={(e) => {
-            e.target.style.color = "#fff";
+            e.target.style.color = "#333";
             e.target.style.transform = "scale(1)";
           }}
         >
@@ -114,57 +94,58 @@ function Header() {
           <>
             <Link
               to="/login"
-              className="btn rounded-pill px-3 py-1"
+              className="btn rounded-pill px-3 py-2 fw-semibold"
               style={{
-                background: "rgba(255,255,255,0.2)",
+                background: "#003366",
                 color: "#fff",
-                border: "1px solid rgba(255,255,255,0.4)",
+                border: "none",
                 transition: "all 0.3s",
               }}
               onMouseEnter={(e) => {
-                e.target.style.background = "rgba(255,255,255,0.4)";
+                e.target.style.background = "#00509e";
               }}
               onMouseLeave={(e) => {
-                e.target.style.background = "rgba(255,255,255,0.2)";
+                e.target.style.background = "#003366";
               }}
             >
               Sign In
             </Link>
             <Link
               to="/signup"
-              className="btn rounded-pill px-3 py-1"
+              className="btn rounded-pill px-3 py-2 fw-semibold"
               style={{
-                background: "rgba(255,255,255,0.2)",
+                background: "#003366",
                 color: "#fff",
-                border: "1px solid rgba(255,255,255,0.4)",
+                border: "none",
                 transition: "all 0.3s",
               }}
               onMouseEnter={(e) => {
-                e.target.style.background = "rgba(255,255,255,0.4)";
+                e.target.style.background = "#00509e";
               }}
               onMouseLeave={(e) => {
-                e.target.style.background = "rgba(255,255,255,0.2)";
+                e.target.style.background = "#003366";
               }}
             >
               Sign Up
             </Link>
           </>
         )}
+
         {isUserExit() && (
           <button
             onClick={handleSignOut}
-            className="btn rounded-pill px-3 py-1"
+            className="btn rounded-pill px-3 py-2 fw-semibold"
             style={{
-              background: "rgba(255,255,255,0.2)",
+              background: "#003366",
               color: "#fff",
-              border: "1px solid rgba(255,255,255,0.4)",
+              border: "none",
               transition: "all 0.3s",
             }}
             onMouseEnter={(e) => {
-              e.target.style.background = "rgba(255,255,255,0.4)";
+              e.target.style.background = "#00509e";
             }}
             onMouseLeave={(e) => {
-              e.target.style.background = "rgba(255,255,255,0.2)";
+              e.target.style.background = "#003366";
             }}
           >
             Log Out

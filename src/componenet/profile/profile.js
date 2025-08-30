@@ -1,309 +1,231 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { getCurrentUser } from "../auth/auth";
+import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import EndPoint from "../apis/EndPoint";
-import { toast, ToastContainer } from "react-toastify";
-import { getCurrentUser } from "../auth/auth";
-import { useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
 
-function Profile() {
+function ProfilePage() {
   const navigate = useNavigate();
   const user = getCurrentUser();
-  const [editMode, setEditMode] = useState(false);
-  const [formData, setFormData] = useState({
-    contact: user?.contact || "",
-    gender: user?.gender || "",
-    level: user?.level || "",
-    imageaname: null,
+  const[mood,setMood] = useState([]);
+  const [localUser, setLocalUser] = useState(user);
+  const [formdata, setFormdata] = useState({
+    contact: user?.profile?.contact || "",
+    gender: user?.profile?.gender || "male",
+    level: user?.profile?.level || "beginner",
+    image: null,
   });
+  const [isEditing, setIsEditing] = useState(false);
+  const [showMoods, setShowMoods] = useState(false);
+  const [notes, setNotes] = useState([]);
+   const [showNotes, setShowNotes] = useState(false);
 
-  useEffect(() => {
-    if (user) {
-      setFormData({
-        contact: user.contact || "",
-        gender: user.gender || "",
-        level: user.level || "",
-        imageaname: null,
-      });
-    }
-  }, [user]);
 
-  const handleSubmit = async (e) => {
+  // Handle profile update
+  const handleFormdata = async (e) => {
     e.preventDefault();
-    if (!user) {
-      toast.error("User not found");
-      return;
-    }
-
-    const userId = user._id;
-    const data = new FormData();
-    data.append("contact", formData.contact);
-    data.append("gender", formData.gender);
-    data.append("level", formData.level);
-    if (formData.imageaname) data.append("imageaname", formData.imageaname);
-    data.append("userId", userId);
-
     try {
-      await axios.put(EndPoint.UPDATE_PROFILE, data);
-      setEditMode(false);
-      toast.success("Profile updated successfully!");
+      const data = new FormData();
+      data.append("userId", user._id);
+      data.append("contact", formdata.contact);
+      data.append("gender", formdata.gender);
+      data.append("level", formdata.level);
+      if (formdata.image) data.append("imageaname", formdata.image);
+
+      const response = await axios.put(EndPoint.UPDATE_PROFILE, data);
+      const updatedUser = response.data;
+
+      setLocalUser(updatedUser);
+      sessionStorage.setItem("current_user", JSON.stringify(updatedUser));
+      toast.success("Profile updated successfully");
+      setIsEditing(false);
     } catch (err) {
       console.log(err);
       toast.error("Something went wrong");
     }
   };
 
-  const handleBack = () => navigate(-1);
+  // Fetch moods for Graphic Design
+  const fetchMoods = async () => {
+    try{
+      const res = await axios.get(EndPoint.GETONLYMOOD(user._id));
+      setMood(res.data.mood_history);
+      console.log(res.data);
+      // Assuming res.data is an array of { mood, date }
+    } catch (err){
+      console.log(err);
+      toast.error("Failed to fetch moods");
+    }
+  };
+  
+  const fetchNotes = async () => {
+  try {
+    const res = await axios.get(EndPoint.GETONLYNOTES(user._id)); // create this endpoint
+    setNotes(res.data.note_history); // assuming backend returns { notes: [...] }
+    console.log(res.data);
+  } catch (err) {
+    console.log(err);
+    toast.error("Failed to fetch notes");
+  }
+};
+
+  const services = [
+    { id: "graphic", title: "moods", desc: "Logos, posters, and branding designs.", color: "#f8f9fa" },
+    { id: "web", title: "notes", desc: "Modern, responsive websites with UI/UX focus.", color: "#e3f2fd" },
+    { id: "software", title: "personal plan", desc: "Custom software solutions for your needs.", color: "#fff3e0" },
+    { id: "application", title: "fav qoute", desc: "Mobile & desktop apps with modern tech.", color: "#f1f8e9" },
+  ];
+
+  // Handle service card click
+  const handleServiceClick = (id) => {
+    if (id === "graphic") {
+      setShowMoods(true);
+      fetchMoods();
+    } else if (id === "web") {
+    setShowNotes(true);
+    setShowMoods(false);
+    fetchNotes();
+  } else if (id === "software") {
+    navigate("/personalPlanList")}
+    else if (id === "application") {
+    navigate("/userfavoriterouter"); // Navigate to application page
+  }
+  };
 
   return (
     <>
       <ToastContainer />
-      <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          backgroundColor: "#1a1a1a",
-          color: "#fff",
-          padding: "20px",
-        }}
-      >
-        <aside style={{ width: "60px", padding: "20px 0", textAlign: "center" }}>
-          <button style={{ background: "none", border: "none", color: "#fff", fontSize: "24px" }}>☰</button>
-        </aside>
-        <main style={{ flexGrow: 1, padding: "0 20px" }}>
-          <h1 style={{ fontSize: "24px", marginBottom: "5px" }}>Profile</h1>
-          <p style={{ color: "#888", marginBottom: "20px" }}>View all your profile details here.</p>
-          <div style={{ display: "flex", background: "#222", padding: "20px", borderRadius: "10px", marginBottom: "20px" }}>
-            <div style={{ position: "relative" }}>
-              <img
-                src={`http://localhost:3000/profile/${user?.profile?.imageaname || "default.jpg"}`}
-                alt="profile"
-                style={{
-                  width: "150px",
-                  height: "150px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  border: "4px solid #fff",
-                  boxShadow: "0 8px 25px rgba(0,0,0,0.3)",
-                }}
-              />
+      <div style={{ fontFamily: "Inter, sans-serif", minHeight: "100vh", background: "#ffffff", padding: "60px 20px" }}>
+        <h1 className="text-center fw-bold mb-3">calm</h1>
+        <p className="text-center text-muted mb-5" style={{ maxWidth: "600px", margin: "0 auto" }}>
+          Breathe in peace, live with ease
+        </p>
+
+        <div className="container">
+          <div className="row align-items-center justify-content-center">
+            {/* Profile Card */}
+            <div className="col-md-4 text-center mb-4">
+              <div style={{ background: "#1565c0", borderRadius: "16px", padding: "30px", color: "white" }}>
+                <img
+                  src={`http://localhost:3000/profile/${localUser?.profile?.imageaname}`}
+                  alt="Profile"
+                  style={{ borderRadius: "50%", width: "120px", height: "120px", objectFit: "cover", marginBottom: "15px" }}
+                />
+
+                {!isEditing ? (
+                  <>
+                    <h4 className="mb-2">{localUser?.name}</h4>
+                    <p className="mb-1">{localUser?.email}</p>
+                    <p className="mb-1">Contact: {localUser?.profile?.contact}</p>
+                    <p className="mb-1">Gender: {localUser?.profile?.gender}</p>
+                    <p className="mb-1">Level: {localUser?.profile?.level}</p>
+                    <button className="btn btn-light mt-3 px-4" onClick={() => setIsEditing(true)}>
+                      Edit Profile
+                    </button>
+                  </>
+                ) : (
+                  <form onSubmit={handleFormdata}>
+                    <input
+                      type="text"
+                      className="form-control mb-2"
+                      placeholder="Contact"
+                      value={formdata.contact}
+                      onChange={(e) => setFormdata({ ...formdata, contact: e.target.value })}
+                    />
+                    <select
+                      className="form-control mb-2"
+                      value={formdata.gender}
+                      onChange={(e) => setFormdata({ ...formdata, gender: e.target.value })}
+                    >
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="othere">Other</option>
+                    </select>
+                    <select
+                      className="form-control mb-2"
+                      value={formdata.level}
+                      onChange={(e) => setFormdata({ ...formdata, level: e.target.value })}
+                    >
+                      <option value="beginner">Beginner</option>
+                      <option value="intermediate">Intermediate</option>
+                      <option value="advanced">Advanced</option>
+                    </select>
+                    <input
+                      type="file"
+                      className="form-control mb-2"
+                      onChange={(e) => setFormdata({ ...formdata, image: e.target.files[0] })}
+                    />
+                    <button type="submit" className="btn btn-light px-4">Save</button>
+                    <button type="button" className="btn btn-secondary ms-2 px-4" onClick={() => setIsEditing(false)}>Cancel</button>
+                  </form>
+                )}
+              </div>
             </div>
-            <div style={{ marginLeft: "20px", flexGrow: 1 }}>
-              <h2 style={{ margin: 0, fontSize: "20px" }}>
-                {user?.name} <span style={{ color: "#00cc00", fontSize: "14px" }}>Premium User</span>
-              </h2>
-              <div style={{ marginTop: "10px" }}>
-                <h3 style={{ fontSize: "16px", marginBottom: "10px" }}>Bio & other details</h3>
-                <p><strong>My Role:</strong> Beatmaker</p>
-                <p><strong>My 3 Favorite Artists:</strong> Ninno, Travis Scott, Metro Boomin</p>
-                <p><strong>The Software or Equipment I Use:</strong> Ableton</p>
-                <p><strong>My City or Region:</strong> California, USA</p>
-                <p><strong>My Experience Level:</strong> Intermediate</p>
-                <p><strong>My Favorite Music Genre:</strong> Trap</p>
-                <p><strong>My Preferred Music Mood:</strong> Melancholic</p>
-                <p><strong>Availability:</strong> <span style={{ color: "#00cc00" }}>✔ Available for Collaboration</span></p>
+
+            {/* Service Cards */}
+            <div className="col-md-8">
+              <div className="row g-4">
+                {services.map((service) => (
+                  <div key={service.id} className="col-6">
+                    <div
+                      className="card shadow-sm h-100"
+                      style={{ borderRadius: "16px", background: service.color, cursor: "pointer", transition: "0.3s" }}
+                      onClick={() => handleServiceClick(service.id)}
+                      onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-5px)")}
+                      onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+                    >
+                      <div className="card-body text-center">
+                        <h5 className="fw-bold">{service.title}</h5>
+                        <p className="text-muted small">{service.desc}</p>
+                        <button className="btn btn-outline-primary btn-sm mt-2">View More</button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div style={{ marginTop: "10px" }}>
-                <span style={{ background: "#00cc00", padding: "5px 10px", borderRadius: "5px", marginRight: "10px" }}>✔ Top Collaborator</span>
-              </div>
-              <div style={{ marginTop: "10px" }}>
-                <span style={{ background: "#333", padding: "5px 10px", borderRadius: "5px", marginRight: "10px" }}>#Drill</span>
-                <span style={{ background: "#333", padding: "5px 10px", borderRadius: "5px", marginRight: "10px" }}>#Melancholic</span>
-                <span style={{ background: "#333", padding: "5px 10px", borderRadius: "5px" }}>#Rap-US</span>
-              </div>
+
+              {/* Moods Section */}
+              {showMoods && (
+                <div className="mt-4">
+                  <h5>Your Moods:</h5>
+                  <ul className="list-group">
+                    {mood.length > 0 ? (
+                      mood.map((item, index) => (
+                        <li key={index} className="list-group-item">
+                          <strong>{item.mood}</strong> - {new Date(item.date).toLocaleDateString()}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="list-group-item">No moods found</li>
+                    )}
+                  </ul>
+                </div>
+              )}
+              {showNotes && (
+  <div className="mt-4">
+    <h5>Your Notes:</h5>
+    <ul className="list-group">
+      {notes.length > 0 ? (
+        notes.map((item, index) => (
+          <li key={index} className="list-group-item">
+            <strong>{item.note}</strong> - {new Date(item.date).toLocaleDateString()}
+          </li>
+        ))
+      ) : (
+        <li className="list-group-item">No notes found</li>
+      )}
+    </ul>
+  </div>
+)}
+
             </div>
+
           </div>
-          <div style={{ background: "#222", padding: "20px", borderRadius: "10px", marginBottom: "20px" }}>
-            <h3 style={{ fontSize: "16px", marginBottom: "10px" }}>Social Media</h3>
-            <div style={{ display: "flex", gap: "10px" }}>
-              <a href="#"><img src="https://via.placeholder.com/30?text=YouTube" alt="YouTube" style={{ width: "30px", height: "30px" }} /></a>
-              <a href="#"><img src="https://via.placeholder.com/30?text=Instagram" alt="Instagram" style={{ width: "30px", height: "30px" }} /></a>
-              <a href="#"><img src="https://via.placeholder.com/30?text=TikTok" alt="TikTok" style={{ width: "30px", height: "30px" }} /></a>
-            </div>
-          </div>
-          <div style={{ textAlign: "right" }}>
-            <button style={{ background: "#444", border: "none", color: "#fff", width: "50px", height: "50px", borderRadius: "50%", marginLeft: "10px", cursor: "pointer" }}>↑</button>
-            <button style={{ background: "#444", border: "none", color: "#fff", width: "50px", height: "50px", borderRadius: "50%", marginLeft: "10px", cursor: "pointer" }}>↓</button>
-            <button style={{ background: "#444", border: "none", color: "#fff", width: "50px", height: "50px", borderRadius: "50%", marginLeft: "10px", cursor: "pointer" }}>↻</button>
-          </div>
-          {!editMode ? (
-            <div style={{ textAlign: "center", marginTop: "20px" }}>
-              <button
-                style={{
-                  backgroundColor: "#667eea",
-                  color: "white",
-                  borderRadius: "50px",
-                  padding: "10px 20px",
-                  margin: "5px",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-                onClick={() => navigate("/userRoutine")}
-              >
-                Routine
-              </button>
-              <button
-                style={{
-                  backgroundColor: "#764ba2",
-                  color: "white",
-                  borderRadius: "50px",
-                  padding: "10px 20px",
-                  margin: "5px",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-                onClick={() => navigate("/personalPlanList")}
-              >
-                Personal Plan
-              </button>
-              <button
-                style={{
-                  backgroundColor: "#667eea",
-                  color: "white",
-                  borderRadius: "50px",
-                  padding: "10px 20px",
-                  margin: "5px",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-                onClick={() => navigate("/userfavoriterouter")}
-              >
-                Quotes
-              </button>
-              <button
-                style={{
-                  backgroundColor: "#764ba2",
-                  color: "white",
-                  borderRadius: "50px",
-                  padding: "10px 20px",
-                  margin: "5px",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-                onClick={() => navigate("/userFavoritePose")}
-              >
-                Poses
-              </button>
-              <button
-                style={{
-                  backgroundColor: "#667eea",
-                  color: "white",
-                  borderRadius: "50px",
-                  padding: "10px 20px",
-                  margin: "5px",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-                onClick={() => navigate("/moodhistory")}
-              >
-                Track Your Mood
-              </button>
-              <button
-                style={{
-                  backgroundColor: "#000",
-                  color: "#fff",
-                  border: "1px solid #fff",
-                  borderRadius: "50px",
-                  padding: "10px 20px",
-                  marginTop: "20px",
-                  width: "100%",
-                  cursor: "pointer",
-                }}
-                onClick={() => setEditMode(true)}
-              >
-                Edit Profile
-              </button>
-            </div>
-          ) : (
-            <form
-              onSubmit={handleSubmit}
-              style={{
-                background: "#222",
-                borderRadius: "10px",
-                padding: "20px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "15px",
-                marginTop: "20px",
-              }}
-              encType="multipart/form-data"
-            >
-              <input
-                type="file"
-                className="form-control"
-                onChange={(e) =>
-                  setFormData({ ...formData, imageaname: e.target.files[0] })
-                }
-                style={{ background: "#333", color: "#fff", border: "none", padding: "10px" }}
-              />
-              <input
-                type="text"
-                placeholder="Contact"
-                value={formData.contact}
-                onChange={(e) =>
-                  setFormData({ ...formData, contact: e.target.value })
-                }
-                className="form-control"
-                style={{ background: "#333", color: "#fff", border: "none", padding: "10px" }}
-              />
-              <select
-                value={formData.gender}
-                onChange={(e) =>
-                  setFormData({ ...formData, gender: e.target.value })
-                }
-                className="form-control"
-                style={{ background: "#333", color: "#fff", border: "none", padding: "10px" }}
-              >
-                <option value="">Select Gender</option>
-                <option value="female">Female</option>
-                <option value="male">Male</option>
-                <option value="other">Other</option>
-              </select>
-              <input
-                type="text"
-                placeholder="Level"
-                value={formData.level}
-                onChange={(e) =>
-                  setFormData({ ...formData, level: e.target.value })
-                }
-                className="form-control"
-                style={{ background: "#333", color: "#fff", border: "none", padding: "10px" }}
-              />
-              <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
-                <button
-                  type="submit"
-                  style={{
-                    backgroundColor: "#00cc00",
-                    color: "white",
-                    borderRadius: "50px",
-                    padding: "10px 20px",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  Save
-                </button>
-                <button
-                  type="button"
-                  style={{
-                    backgroundColor: "#444",
-                    color: "white",
-                    borderRadius: "50px",
-                    padding: "10px 20px",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                  onClick={handleBack}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          )}
-        </main>
+        </div>
       </div>
     </>
   );
 }
 
-export default Profile;
+export default ProfilePage;

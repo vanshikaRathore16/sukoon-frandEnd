@@ -13,29 +13,28 @@ import {
 
 function MeditationList() {
   const [meditations, setMeditations] = useState([]);
-  const[filterItem,setFilterItem] = useState([]);
+  const [filterItem, setFilterItem] = useState([]);
   const [filteredMeditations, setFilteredMeditations] = useState([]);
   const [currentMeditation, setCurrentMeditation] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
-  const [categories,setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedTag, setSelectedTag] = useState("");
   const audioRef = useRef(null); 
 
-  
-  useEffect(()=>{
-       const fatchData = async()=>{
-        try{
-           const response = await axios.get(EndPoint.MEDIDATION_CATEGORY_LIST);
-           console.log(response.data);
-           setCategories(response.data.list);
-           console.log("setcatory daat"+categories);
-        }catch(err){
-          console.log(err);
-        }
-       }
-       fatchData();
-  },[])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(EndPoint.MEDIDATION_CATEGORY_LIST);
+        console.log(response.data);
+        setCategories(response.data.list);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchMeditations = async () => {
@@ -54,22 +53,51 @@ function MeditationList() {
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchTerm(value);
-    const filtered = meditations.filter(
-      (m) =>
-        m.title.toLowerCase().includes(value) ||
-        m.description.toLowerCase().includes(value)
-    );
+    let filtered = meditations;
+    if (value) {
+      filtered = filtered.filter(
+        (m) =>
+          m.title.toLowerCase().includes(value) ||
+          m.description.toLowerCase().includes(value)
+      );
+    }
+    if (selectedTag) {
+      filtered = filtered.filter(item =>
+        item.type.some(t => t.toLowerCase() === selectedTag.toLowerCase())
+      );
+    }
     setFilteredMeditations(filtered);
+    setFilterItem(filtered);
   };
 
-   const handleCategoryClick = (cat) =>{
-       const filter = meditations.filter(item =>
-    item.type.some(t => t.toLowerCase() === cat.toLowerCase())
-  );
-      setFilterItem(filter);
-   }
+  const handleCategoryClick = (cat) => {
+    const filter = meditations.filter(item =>
+      item.type.some(t => t.toLowerCase() === cat.toLowerCase())
+    );
+    setFilterItem(filter);
+    setSelectedTag(""); // Reset tag filter when category is clicked
+  };
 
-    //   related to aodio player
+  const handleTagSelect = (e) => {
+    const tag = e.target.value;
+    setSelectedTag(tag);
+    let filtered = meditations;
+    if (searchTerm) {
+      filtered = filtered.filter(
+        (m) =>
+          m.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          m.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    if (tag) {
+      filtered = filtered.filter(item =>
+        item.type.some(t => t.toLowerCase() === tag.toLowerCase())
+      );
+    }
+    setFilteredMeditations(filtered);
+    setFilterItem(filtered);
+  };
+
   const playMeditation = (meditation) => {
     setCurrentMeditation(meditation);
     setTimeout(() => {
@@ -101,6 +129,9 @@ function MeditationList() {
     audioRef.current.currentTime = newTime;
   };
 
+  // Extract unique tags from meditations
+  const uniqueTags = [...new Set(meditations.flatMap(m => m.type))];
+
   return (
     <div style={{ display: "flex" }}>
       {/* Left Sidebar: Categories */}
@@ -112,10 +143,10 @@ function MeditationList() {
           position: "sticky",
           top: 0,
           overflowY: "auto",
-          alignItems : "center"
+          alignItems: "center"
         }}
       >
-        <ul style={{ listStyle: "none", padding: 0,alignItems : "center" }}>
+        <ul style={{ listStyle: "none", padding: 0, alignItems: "center" }}>
           {categories.map((cat) => (
             <li
               key={cat}
@@ -129,10 +160,10 @@ function MeditationList() {
                 cursor: "pointer",
                 color: "#fff",
                 transition: "all 0.3s",
-                 alignItems: "center", // vertical center
-          justifyContent: "center", // horizontal center
+                alignItems: "center",
+                justifyContent: "center",
               }}
-              onClick={()=>{handleCategoryClick(cat)}}
+              onClick={() => handleCategoryClick(cat)}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = cat.color;
               }}
@@ -148,42 +179,70 @@ function MeditationList() {
 
       {/* Meditation Grid Section */}
       <div style={{ flex: 1, padding: "20px" }}>
-        {/* Search Bar */}
+        {/* Search Bar and Tag Dropdown */}
         <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            marginBottom: "20px",
-          }}
-        >
-          <input
-            type="text"
-            placeholder="Search meditations..."
-            value={searchTerm}
-            onChange={handleSearch}
-            style={{
-              width: "350px",
-              padding: "12px 15px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              fontSize: "16px",
-            }}
-          />
-          <button
-            style={{
-              padding: "12px 20px",
-              marginLeft: "10px",
-              background: "#4fc3f7",
-              border: "none",
-              borderRadius: "8px",
-              color: "#fff",
-              fontSize: "16px",
-              cursor: "pointer",
-            }}
-          >
-            🔍 Search
-          </button>
-        </div>
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "20px",
+  }}
+>
+  {/* 🔍 Search Box */}
+  <div style={{ display: "flex", alignItems: "center" }}>
+    <input
+      type="text"
+      placeholder="Search meditations..."
+      value={searchTerm}
+      onChange={handleSearch}
+      style={{
+        width: "350px",
+        padding: "12px 15px",
+        borderRadius: "8px",
+        border: "1px solid #ccc",
+        fontSize: "16px",
+      }}
+    />
+    <button
+      style={{
+        padding: "12px 20px",
+        marginLeft: "10px",
+        background: "#4fc3f7",
+        border: "none",
+        borderRadius: "8px",
+        color: "#fff",
+        fontSize: "16px",
+        cursor: "pointer",
+      }}
+    >
+      🔍 Search
+    </button>
+  </div>
+
+  {/* 🎯 Filter Dropdown */}
+  <div>
+    <select
+      value={selectedTag}
+      onChange={handleTagSelect}
+      style={{
+        width: "350px", // ✅ same as search box
+        padding: "12px 15px",
+        borderRadius: "8px",
+        border: "1px solid #ccc",
+        fontSize: "16px",
+        background: "#fff",
+        cursor: "pointer",
+      }}
+    >
+      <option value="">Filter by Tag</option>
+      {uniqueTags.map((tag) => (
+        <option key={tag} value={tag}>
+          {tag}
+        </option>
+      ))}
+    </select>
+  </div>
+</div>
+
 
         <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
           All Saved Meditations
