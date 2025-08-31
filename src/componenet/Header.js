@@ -38,8 +38,8 @@ function Header() {
       <div className="d-flex gap-4 align-items-center flex-grow-1 ms-5">
         {[
           ["Home", "/home"],
-          ["Mood", "/mood"],
-          ["Quotes", "/qoute"],
+          ["selfReflation", "/selfReflation"],
+          // ["Quotes", "/qoute"],
           ["Pose", "/pose"],
           ["Personal Plan", "/personalplan"],
           ["Routine", "/routine"],

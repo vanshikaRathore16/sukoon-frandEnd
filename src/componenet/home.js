@@ -733,7 +733,7 @@ function Home(){
             key={index}
             style={{
               background:
-                "linear-gradient(180deg, #2a5cc7 0%, #7557ca 100%)",
+                "linear-gradient(180deg, #003366 0%, #7557ca 100%)",
               borderRadius: "16px",
               color: "white",
               padding: "1.5rem",

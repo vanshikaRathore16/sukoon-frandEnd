@@ -14,7 +14,7 @@ function Mood(){
         <span className="fw-semibold fs-3">U</span>
         nderstand yourself better and take better control of your life with Sukoon
       </p>
-      <Link to="/journal">
+      <Link to="/selfReflation">
   <button className="btn btn-success rounded-pill px-4 py-2 mt-3 fw-semibold">
     Let’s start
   </button>

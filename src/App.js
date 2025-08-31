@@ -6,7 +6,7 @@ import BuildInRoutine from "./componenet/routine/buildInRoutine.js";
 import RoutineList from "./componenet/routine/routineList.js";
 import Qoute from "./componenet/qoute/qoute.js";
 import Mood from "./componenet/mood/mood.js";
-// import Jouranl from "./componenet/mood/journal.js";
+import SelfReflation from "./componenet/mood/seldReflcation.js";
 import Pose from "./componenet/pose/pose.js";
 import Profile from "./componenet/profile/profile.js";
 import  Metidation from "./componenet/medidation/medidation.js";
@@ -82,7 +82,7 @@ const loadQouteCategory = async()=>{
       <Route path = "/personalplan" element = {< PersonalPlan/>}/>
        <Route path="/routine" element={<BuildInRoutine />} />
         <Route path="/routinelist/:tag" element={<RoutineList />} />
-         {/* <Route path="/journal" element={<Jouranl />} /> */}
+        <Route path="/selfReflation" element={<SelfReflation />} />
         <Route path="/mood" element={<Mood/>}/>
         <Route path = "/profile" element = {<Profile/>} />
         <Route path = "/qoute" element={<Qoute />}/>

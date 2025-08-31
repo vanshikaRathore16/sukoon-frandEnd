@@ -59,46 +59,63 @@ function Posecategory() {
       <Header />
       <ToastContainer />
       {/* Hero Section */}
-      <div
-        className="hero-section position-relative text-white"
-        style={{
-          backgroundImage: "url('/image/PC1.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "100vh",
-        }}
-      >
-        <div
-          className="position-absolute"
-          style={{ top: "25%", left: "10%", maxWidth: "40%" }}
-        >
-          <h1 className="display-5 fw-bold">Start Every Day with Sukoon</h1>
-          <p className="fs-5">
-            Explore our built-in yoga plans designed for every mood and
-            lifestyle
-          </p>
-        </div>
+     <div
+  className="hero-section position-relative text-white"
+  style={{
+    backgroundImage: "url('https://plus.unsplash.com/premium_photo-1722686468510-50697b1a9f38?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    height: "100vh",
+  }}
+>
+  {/* Transparent Overlay */}
+  <div
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundColor: "rgba(0, 0, 0, 0.4)", // black with 40% transparency
+      zIndex: 1,
+    }}
+  ></div>
 
-        <div
-          className="position-absolute bg-dark bg-opacity-50 text-white rounded p-4 d-flex flex-column justify-content-between"
-          style={{
-            bottom: "40px",
-            right: "40px",
-            width: "350px",
-            height: "180px",
-          }}
-        >
-          <div className="text-end">
-            <p className="mb-2 fw-semibold" style={{ fontSize: "1rem" }}>
-              From stress to strength — follow a mindful path with ready-made
-              plans
-            </p>
-          </div>
-          <div className="text-end">
-            <button className="btn btn-success px-4 py-2">Read More</button>
-          </div>
-        </div>
-      </div>
+  {/* Text Content */}
+  <div
+    className="position-absolute"
+    style={{ top: "25%", left: "10%", maxWidth: "40%", zIndex: 2 }}
+  >
+    <h1 className="display-5 fw-bold">Start Every Day with Sukoon</h1>
+    <p className="fs-5">
+      Explore our built-in yoga plans designed for every mood and lifestyle
+    </p>
+  </div>
+
+  {/* Bottom Card */}
+  <div
+  className="position-absolute bg-dark bg-opacity-50 text-white rounded p-4 d-flex flex-column justify-content-center align-items-center text-center"
+  style={{
+    bottom: "40px",
+    right: "40px",
+    width: "350px",
+    height: "180px",
+    zIndex: 2,
+  }}
+>
+  <p className="mb-3 fw-semibold" style={{ fontSize: "1rem" }}>
+    From stress to strength — follow a mindful path with ready-made plans
+  </p>
+  <button
+    className="btn px-4 py-2"
+    style={{ backgroundColor: "#003366", color: "white" }}
+  >
+    Read More
+  </button>
+</div>
+
+</div>
+
 
       {/* Cards Section */}
       <div
