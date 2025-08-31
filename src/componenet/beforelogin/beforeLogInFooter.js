@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
-import EndPoint from "./apis/EndPoint.js";
 import axios from "axios";
-import { getCurrentUser } from "./auth/auth.js";
+import { toast } from "react-toastify";
+import EndPoint from "../apis/EndPoint";
+import { getCurrentUser } from "../auth/auth";
 
-function Footer() {
- const user = getCurrentUser();
+const FooterBeforeLogIn = () => {
+  const user = getCurrentUser();
   const [feedback, setFeedback] = useState({ feedback: "", rating: "", name: "" });
 
   const handleFormSubmit = async (e) => {
@@ -39,72 +39,7 @@ function Footer() {
           margin: "0 auto",
         }}
       >
-        {/* Feedback Form on Left */}
-        <div style={{ flex: "1 1 300px", marginRight: "40px", marginBottom: "30px" }}>
-          <h5 style={{ fontWeight: "700", marginBottom: "15px" }}>We Value Your Feedback 💚</h5>
-          <form
-            onSubmit={handleFormSubmit}
-            style={{
-              background: "rgba(255,255,255,0.05)",
-              padding: "25px",
-              borderRadius: "12px",
-              boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
-            }}
-          >
-            <textarea
-              className="form-control mb-3"
-              rows="3"
-              placeholder="Share your experience with Sukoon..."
-              value={feedback.feedback}
-              onChange={(e) => setFeedback({ ...feedback, feedback: e.target.value })}
-              required
-              style={{
-                borderRadius: "8px",
-                background: "rgba(255,255,255,0.1)",
-                color: "#fff",
-                border: "none",
-              }}
-            />
-            <input
-              type="number"
-              className="form-control mb-3"
-              min="1"
-              max="5"
-              placeholder="Rate us (1-5)"
-              value={feedback.rating}
-              onChange={(e) => setFeedback({ ...feedback, rating: e.target.value })}
-              required
-              style={{
-                borderRadius: "8px",
-                background: "rgba(255,255,255,0.1)",
-                color: "#fff",
-                border: "none",
-              }}
-            />
-            <button
-              type="submit"
-              style={{
-                background: "linear-gradient(90deg, #6a11cb, #2575fc)",
-                border: "none",
-                color: "#fff",
-                fontWeight: "700",
-                padding: "12px 0",
-                borderRadius: "8px",
-                cursor: "pointer",
-                width: "100%",
-                transition: "all 0.3s ease",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "linear-gradient(90deg, #2575fc, #6a11cb)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = "linear-gradient(90deg, #6a11cb, #2575fc)")
-              }
-            >
-              Submit
-            </button>
-          </form>
-        </div>
+        
 
         {/* Other Columns on Right */}
         <div style={{ flex: "2 1 600px", display: "flex", flexWrap: "wrap", gap: "30px" }}>
@@ -138,6 +73,27 @@ function Footer() {
             
             },
             {
+               
+              title: "Help",
+              items: [
+                "FAQ",
+                "Contact Us",
+                "Terms",
+                "Privacy Policy",
+                "Consumer Health",
+                "Data",
+                "CCPA Notice",
+                "Opt Out of Targeted Ads",
+                "Cookies",
+                "Accessibility Statement",
+              ],
+            
+            },
+            {
+              title: "Calm for Organizations",
+              items: ["Organizations under 300", "Organizations 300+"],
+            },
+             {
               title: "Calm for Organizations",
               items: ["Organizations under 300", "Organizations 300+"],
             },
@@ -206,8 +162,5 @@ function Footer() {
     </footer>
   );
 };
- 
-  
 
-
-export default Footer;
+export default FooterBeforeLogIn;

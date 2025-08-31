@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import EndPoint from "../apis/EndPoint";
+import Header from "../Header";
 import {
   FaHome,
   FaMoon,
@@ -132,12 +133,13 @@ function MeditationList() {
   // Extract unique tags from meditations
   const uniqueTags = [...new Set(meditations.flatMap(m => m.type))];
 
-  return (
+  return <>
+    {/* <Header/> */}
     <div style={{ display: "flex" }}>
       {/* Left Sidebar: Categories */}
       <div
         style={{
-          backgroundColor: "rgba(129, 187, 129, 1)",
+          backgroundColor: "#003366",
           width: "300px",
           height: "100vh",
           position: "sticky",
@@ -146,6 +148,39 @@ function MeditationList() {
           alignItems: "center"
         }}
       >
+        <div
+        style={{
+          padding: "20px",
+          textAlign: "center",
+          marginBottom: "20px",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
+          width: "100%",
+        }}
+      >
+        <h1
+          style={{
+            fontFamily: "'Lora', serif",
+            fontSize: "2rem",
+            fontWeight: "700",
+            color: "#fff",
+            margin: 0,
+            textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+          }}
+        >
+          sukoon
+        </h1>
+        <p
+          style={{
+            fontFamily: "'Open Sans', sans-serif",
+            fontSize: "0.9rem",
+            color: "#e6f0fa",
+            opacity: 0.8,
+            margin: "5px 0 0",
+          }}
+        >
+          Your Wellness Journey
+        </p>
+      </div>
         <ul style={{ listStyle: "none", padding: 0, alignItems: "center" }}>
           {categories.map((cat) => (
             <li
@@ -206,7 +241,7 @@ function MeditationList() {
       style={{
         padding: "12px 20px",
         marginLeft: "10px",
-        background: "#4fc3f7",
+        background: "#003366",
         border: "none",
         borderRadius: "8px",
         color: "#fff",
@@ -244,9 +279,9 @@ function MeditationList() {
 </div>
 
 
-        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
+        {/* <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
           All Saved Meditations
-        </h2>
+        </h2> */}
 
         {filterItem.length === 0 ? (
           <p style={{ textAlign: "center" }}>No meditations found.</p>
@@ -432,7 +467,7 @@ function MeditationList() {
         </div>
       )}
     </div>
-  );
+  </>
 }
 
 export default MeditationList;

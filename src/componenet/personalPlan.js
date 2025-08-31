@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import EndPoint from "./apis/EndPoint";
 import { getCurrentUser } from "./auth/auth";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "./Header";
 
 function PersonalPlan() {
   const [state, setState] = useState({
@@ -40,10 +41,11 @@ function PersonalPlan() {
   return (
     <>
       <ToastContainer />
+      <Header/>
       <div
         className="d-flex justify-content-center align-items-center vh-100"
         style={{
-          background: "linear-gradient(135deg, #095207ff, #75c998ff)",
+          background: "linear-gradient(135deg, #003366, #9fb5c7ff)",
           padding: "20px",
         }}
       >
@@ -111,18 +113,18 @@ function PersonalPlan() {
               className="btn w-100 rounded-pill text-white fw-bold"
               style={{
                 background:
-                  "linear-gradient(90deg, #0c972aff, #1c884dff)",
+                  "linear-gradient(90deg, #003366, #003369)",
                 padding: "10px 0",
                 fontSize: "16px",
                 transition: "all 0.3s ease",
               }}
               onMouseOver={(e) =>
                 (e.target.style.background =
-                  "linear-gradient(90deg, #088008ff, #044b1cff)")
+                  "linear-gradient(90deg, #003355, #003377)")
               }
               onMouseOut={(e) =>
                 (e.target.style.background =
-                  "linear-gradient(90deg, #4ca051ff, #188b2cff)")
+                  "linear-gradient(90deg, #003356, #003377)")
               }
             >
               Submit

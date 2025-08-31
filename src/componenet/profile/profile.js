@@ -4,7 +4,7 @@ import { getCurrentUser } from "../auth/auth";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import EndPoint from "../apis/EndPoint";
-
+import Header from "../Header";
 function ProfilePage() {
   const navigate = useNavigate();
   const user = getCurrentUser();
@@ -96,17 +96,43 @@ function ProfilePage() {
   return (
     <>
       <ToastContainer />
+      <Header/>
       <div style={{ fontFamily: "Inter, sans-serif", minHeight: "100vh", background: "#ffffff", padding: "60px 20px" }}>
-        <h1 className="text-center fw-bold mb-3">calm</h1>
-        <p className="text-center text-muted mb-5" style={{ maxWidth: "600px", margin: "0 auto" }}>
-          Breathe in peace, live with ease
-        </p>
+       <h1
+  className="fw-bold mb-3"
+  style={{
+    textAlign: "center",
+    fontFamily: "'Lora', serif",
+    fontSize: "3.5rem",
+    color: "#003366",
+    letterSpacing: "2px",
+    textShadow: "2px 2px 6px rgba(0,0,0,0.2)",
+  }}
+>
+  Calm
+</h1>
+
+<p
+  style={{
+    textAlign: "center",
+    color: "#555",
+    fontFamily: "'Open Sans', sans-serif",
+    fontSize: "1.25rem",
+    maxWidth: "600px",
+    margin: "0 auto",
+    lineHeight: "1.8",
+    fontStyle: "italic",
+  }}
+>
+  Calm mind, kind heart, peaceful soul
+</p>
+
 
         <div className="container">
           <div className="row align-items-center justify-content-center">
             {/* Profile Card */}
             <div className="col-md-4 text-center mb-4">
-              <div style={{ background: "#1565c0", borderRadius: "16px", padding: "30px", color: "white" }}>
+              <div style={{ background: "#597faaff", borderRadius: "16px", padding: "30px", color: "white" }}>
                 <img
                   src={`http://localhost:3000/profile/${localUser?.profile?.imageaname}`}
                   alt="Profile"
@@ -120,9 +146,21 @@ function ProfilePage() {
                     <p className="mb-1">Contact: {localUser?.profile?.contact}</p>
                     <p className="mb-1">Gender: {localUser?.profile?.gender}</p>
                     <p className="mb-1">Level: {localUser?.profile?.level}</p>
-                    <button className="btn btn-light mt-3 px-4" onClick={() => setIsEditing(true)}>
-                      Edit Profile
-                    </button>
+                    <button
+  style={{
+    backgroundColor: "#003366", // custom color
+    color: "#fff",               // text color
+    border: "none",
+    padding: "10px 20px",
+    borderRadius: "8px",
+    fontWeight: "600",
+    cursor: "pointer",
+  }}
+  onClick={() => setIsEditing(true)}
+>
+  Edit Profile
+</button>
+
                   </>
                 ) : (
                   <form onSubmit={handleFormdata}>
@@ -178,7 +216,21 @@ function ProfilePage() {
                       <div className="card-body text-center">
                         <h5 className="fw-bold">{service.title}</h5>
                         <p className="text-muted small">{service.desc}</p>
-                        <button className="btn btn-outline-primary btn-sm mt-2">View More</button>
+                      <button
+  style={{
+    backgroundColor: "#003366", // custom color
+    color: "#fff",              // text color
+    border: "none",
+    padding: "5px 15px",
+    borderRadius: "5px",
+    fontWeight: "500",
+    cursor: "pointer",
+  }}
+  className="btn-sm mt-2"
+>
+  View More
+</button>
+
                       </div>
                     </div>
                   </div>

@@ -93,7 +93,7 @@ function Home(){
         {/* hero section */}
         <div className="hero-section">
             <img
-              src = "/image/homeimage.jpg"
+              src = "https://cdn.pixabay.com/photo/2013/05/12/18/55/balance-110850_640.jpg"
               alt = "yoga girl"
             />
             <div className="hero-overlay"></div>
@@ -296,7 +296,7 @@ function Home(){
             style={{
               padding: "2rem",
               borderRadius: "1rem",
-              backgroundColor: "#a8e6a3",
+              backgroundColor: "#99ccff",
               textAlign: "center",
               transition: "transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease",
               boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
@@ -341,7 +341,7 @@ function Home(){
             style={{
               padding: "2rem",
               borderRadius: "1rem",
-              backgroundColor: "#a8a8ff",
+              backgroundColor: "",
               textAlign: "center",
               transition: "transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease",
               boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",

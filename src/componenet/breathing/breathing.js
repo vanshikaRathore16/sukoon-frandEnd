@@ -55,127 +55,33 @@ export default function BubbleContainer() {
   };
 
   return (
-    <>
-      {/* Deep Breathing Info Section */}
-      <div className="min-vh-100 d-flex flex-column align-items-center justify-content-start px-4 py-5 bg-light">
-        <h1 className="display-4 fw-bold text-dark mb-4">Deep breathing</h1>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', padding: '40px 50px', backgroundColor: '#f8f9fa' }}>
+      <h1 style={{ fontSize: '3.5rem', fontWeight: 'bold', color: '#212529', marginBottom: '40px' }}>Deep breathing</h1>
+      <p style={{ fontSize: '1.5rem', color: '#6c757d', textAlign: 'center', marginBottom: '40px', width: '80%' }}>
+        Deep breathing is a simple yet powerful relaxation technique that helps you alleviate stress and restore calm.
+      </p>
 
-        <p className="fs-5 text-secondary text-center mb-4 w-75">
-          Deep breathing is a simple relaxation technique that helps you feel
-          better when you’re stressed.
-        </p>
+      <p style={{ fontSize: '1.2rem', color: '#6c757d', textAlign: 'center', marginBottom: '30px', width: '75%' }}>
+        This tool guides you through a deep breathing exercise, often called square breathing. Once mastered, you can practice it anywhere—home, work, or in public—to manage stress effectively.
+      </p>
 
-        <p className="text-muted text-center mb-4 w-75">
-          This tool will show you how to do a deep breathing exercise sometimes
-          called square breathing. When you’ve got the hang of it, you can do it
-          almost anywhere you feel stressed: at home, at work or in public.
-        </p>
-
-        <div
-          className="card shadow-sm rounded-4 p-4 w-100"
-          style={{ maxWidth: "700px" }}
-        >
-          <h2 className="h4 fw-semibold mb-3">There are four easy steps:</h2>
-          <ol className="ps-3 text-secondary">
-            <li>Breathe in deeply for around four seconds</li>
-            <li>Hold your breath for around four seconds</li>
-            <li>Breathe out for around four seconds</li>
-            <li>Hold your breath for around four seconds</li>
-          </ol>
-        </div>
-
-        <p className="text-muted mt-4 text-center">
-          Repeat this for a few minutes or until you start feeling better.
-        </p>
-
-        <button className="btn btn-primary position-fixed bottom-0 end-0 m-4 rounded-pill shadow">
-          Chat Live
-        </button>
+      <div style={{ backgroundColor: '#fff', borderRadius: '15px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', padding: '30px', maxWidth: '700px', width: '100%', marginBottom: '30px' }}>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '20px', color: '#212529' }}>There are four easy steps:</h2>
+        <ol style={{ paddingLeft: '20px', color: '#6c757d', fontSize: '1.1rem' }}>
+          <li>Breathe in deeply for around four seconds</li>
+          <li>Hold your breath for around four seconds</li>
+          <li>Breathe out slowly for around six seconds</li>
+          <li>Hold your breath again for around four seconds</li>
+        </ol>
       </div>
 
-      {/* Bubble Breathing Exercise Section */}
-      <div
-        style={{
-          margin: "40px",
-          height: "500px",
-          background: "#1e3d59",
-          borderRadius: "20px",
-          display: "flex",
-          flexDirection: "column",
-          position: "relative",
-          padding: "20px",
-          overflow: "hidden",
-        }}
-      >
-        {/* Bubble container */}
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {/* Bubble */}
-          <div
-            style={{
-              width: "200px",
-              height: "200px",
-              borderRadius: "50%",
-              background: "rgba(255,255,255,0.8)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              transform: `scale(${scale})`,
-              transformOrigin: "center center",
-              transition: "transform 0.1s linear",
-            }}
-          >
-            <span style={{ color: "#333", fontSize: "20px" }}>
-              {getPhaseText()}
-            </span>
-          </div>
-        </div>
+      <p style={{ fontSize: '1.1rem', color: '#6c757d', textAlign: 'center', marginBottom: '30px' }}>
+        Repeat this cycle for a few minutes or until you feel a sense of relief and calm.
+      </p>
 
-        {/* Buttons */}
-        <div
-          style={{
-            display: "flex",
-            gap: "20px",
-            justifyContent: "center",
-            position: "absolute",
-            bottom: "20px",
-            width: "100%",
-          }}
-        >
-          <button
-            onClick={() => setIsRunning(true)}
-            style={{
-              padding: "10px 20px",
-              borderRadius: "8px",
-              border: "none",
-              background: "#4caf50",
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            Start
-          </button>
-          <button
-            onClick={() => setIsRunning(false)}
-            style={{
-              padding: "10px 20px",
-              borderRadius: "8px",
-              border: "none",
-              background: "#f44336",
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            Stop
-          </button>
-        </div>
-      </div>
-    </>
+      
+
+      
+    </div>
   );
 }

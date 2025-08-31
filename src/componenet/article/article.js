@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import EndPoint from "../apis/EndPoint";
 import { Link } from "react-router-dom";
-
+import Header from "../Header";
 const categories = [
   "Mental Health & Wellbeing",
   "Tips & Guides",
@@ -84,7 +84,8 @@ function Article() {
     return matchesCategory && matchesSearch && matchesLanguage;
   });
 
-  return (
+  return <>
+    <Header/>
     <div className="container my-4">
       {/* Filters */}
       <div className="d-flex flex-wrap mb-4 gap-2">
@@ -188,7 +189,7 @@ function Article() {
         )}
       </div>
     </div>
-  );
+  </>
 }
 
 export default Article;

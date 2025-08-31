@@ -1,19 +1,28 @@
-import BeforeLogInFooter from "./beforeLogInFooter";
 import HeaderBeforeLog from "./headerBeforeLogIn";
+import FooterBeforeLogIn from "./beforeLogInFooter";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import EndPoint from "../apis/EndPoint";
 import { toast } from "react-toastify";
-
-function BeforeLigIn() {
-  const [approve, setApprove] = useState([]);
+function SleepBL() {
+     const [approve, setApprove] = useState([]);
   const [open, setOpen] = useState(null);
-
+  const[meditation,setMeditation] = useState(null);
   useEffect(() => {
     approveList();
+    fatchData();
   }, []);
 
+  const fatchData = async()=>{
+    try{
+       let responce = await axios.get(EndPoint. SLEEP_MEDIDATION_FOR_BL);
+       console.log(responce.data);
+       setMeditation(responce.data);
+    }catch(err){
+        console.log(err);
+    }
+  }
   const approveList = async () => {
     try {
       const response = await axios.get(EndPoint.LIST_OF_APPROVE_LIST);
@@ -36,115 +45,149 @@ function BeforeLigIn() {
   const toggle = (id) => {
     setOpen(open === id ? null : id);
   };
-
-  const features = [
-    {
-      icon: "📍", // Placeholder for professional icon (e.g., SVG)
-      title: "Stress Management",
-      desc: "Experience immediate relief from stress and anxiety with tailored techniques.",
-    },
-    {
-      icon: "🌙", // Placeholder for professional icon (e.g., SVG)
-      title: "Improved Sleep",
-      desc: "Achieve restful sleep naturally with guided relaxation methods.",
-    },
-    {
-      icon: "🍃", // Placeholder for professional icon (e.g., SVG)
-      title: "Mindful Living",
-      desc: "Build resilience and confidence with expert-guided support.",
-    },
-  ];
-
   return (
     <>
-      <HeaderBeforeLog />
-      <div>
+    <HeaderBeforeLog/>
+      <div
+        style={{
+          background: "#f9f9ff",
+          width: "100vw",  // force full viewport width
+          margin: "0",
+         padding: "0",
+        }}
+      >
         <div
           style={{
-            backgroundImage: "url('https://www.calm.com/_next/image?url=%2F_n%2Fimages%2Fjasper-lake.webp&w=1920&q=75')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            height: "80vh",
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            color: "#ffffff",
-            backgroundColor: "rgba(0, 0, 0, 0.3)", // Softer transparency
-            backgroundBlendMode: "overlay",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            width: "100%",  // take full width
           }}
         >
-          <h1 style={{ fontWeight: "700", fontSize: "3rem", marginBottom: "1rem" }}>Calm Your Mind. Transform Your Life.</h1>
-          <p style={{ fontSize: "1.3rem", color: "#e0e0e0", marginBottom: "2rem" }}>
-            The Premier App for Sleep, Meditation, and Relaxation
-          </p>
-          <Link
-            to="/login"
-            className="btn"
-            style={{
-              backgroundColor: "#1a2b49",
-              borderColor: "#4a68b0",
-              color: "#fff",
-              padding: "12px 30px",
-              borderRadius: "25px",
-              textDecoration: "none",
-              display: "inline-block",
-              fontSize: "1.1rem",
-              transition: "background-color 0.3s ease",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#4a68b0")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1a2b49")}
-          >
-            Get Started
-          </Link>
-        </div>
+          {/* Text Section */}
+          <div style={{ flex: "1 1 50%", padding: "20px" }}>
+           <h2 style={{ color: "#003366", fontWeight: "700", fontSize: "50px" }}>
+  Sleep Stories, sleep meditations, music and soundscapes
+</h2>
 
-        {/* Features Section */}
-        <div style={{ textAlign: "center", margin: "100px auto", maxWidth: "1200px", padding: "0 20px" }}>
-          <h2 style={{ color: "#1a2b49", fontWeight: "700", fontSize: "2.5rem", letterSpacing: "0.5px", paddingBottom: "15px", display: "inline-block" }}>
-            Our Commitment to Your Well-Being
-          </h2>
-          <div style={{ marginTop: "70px", display: "flex", justifyContent: "center", gap: "40px", flexWrap: "wrap" }}>
-            {features.map((f, i) => (
-              <div
-                key={i}
-                style={{
-                  flex: "0 0 28%",
-                  maxWidth: "28%",
-                  backgroundColor: "#ffffff",
-                  borderRadius: "10px",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-                  padding: "25px",
-                  transition: "box-shadow 0.3s ease",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,0.1)")}
-                onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.05)")}
-              >
-                <div style={{ fontSize: "2rem", color: "#4a68b0", marginBottom: "20px" }}>{f.icon}</div>
-                <h5 style={{ fontWeight: "600", fontSize: "1.4rem", color: "#1a2b49", marginBottom: "12px" }}>{f.title}</h5>
-                <p style={{ color: "#666666", fontSize: "1rem", lineHeight: "1.7", marginBottom: "20px" }}>{f.desc}</p>
-                <a
-                  href="#"
-                  style={{
-                    color: "#4a68b0",
-                    fontWeight: "600",
-                    textDecoration: "none",
-                    borderBottom: "1px solid #4a68b0",
-                    paddingBottom: "2px",
-                    transition: "color 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#1a2b49")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "#4a68b0")}
-                >
-                  Learn More
-                </a>
-              </div>
-            ))}
+<p style={{ fontSize: "1.25rem", color: "#444", margin: "20px 0" }}>
+  Join millions of sound sleepers worldwide. Fall asleep easily and naturally with our Sleep Stories, sleep meditations, exclusive sleep music and sleep sounds. With hundreds of titles to choose from, you'll be drifting off to dreamland in no time. Just press play and drift away..
+</p>
+
+            <button
+              className="btn"
+              style={{
+                background: "linear-gradient(to right, #003366, #4a6fa5)",
+                border: "none",
+                borderRadius: "30px",
+                padding: "10px 30px",
+                color: "#fff",
+                fontSize: "1rem",
+                cursor: "pointer",
+              }}
+            >
+              Sleep better for free
+            </button>
+          </div>
+
+          {/* Image Section */}
+          <div style={{ flex: "1 1 50%", padding: "20px" }}>
+            <img
+              src="https://www.calm.com/_next/image?url=%2F_n%2Fimages%2Fsubpages%2Fsleep-hero.webp&w=1920&q=75"
+              alt="Sleep Story"
+              style={{ width: "100%", borderRadius: "15px", display: "block" }}
+            />
           </div>
         </div>
+      </div>
+        <div className="container py-5">
+      <div className="row align-items-center">
 
-        {/* Testimonials Section */}
+
+
+
+
+
+
+
+<h2 style={{ color: "#003366", fontWeight: "700", fontSize: "40px", textAlign: "center" }}>
+  The easiest way to get deep sleep.
+</h2>
+
+<div className="container py-5">
+  <div className="row align-items-center">
+    {/* Left Section */}
+    <div className="col-md-6 text-center mb-2 mb-md-0">
+      <h3 className="fw-bold mb-3">
+        {meditation?.title || "Loading..."}
+      </h3>
+       <p className="text-muted mb-4" style={{ fontSize: "1.1rem" }}>
+        {meditation?.description || "Sleep Stories will guide you off to sleep quickly and naturally."}
+      </p>
+      <button
+        className="btn btn-light border mb-3"
+        style={{
+          borderRadius: "10px",
+          padding: "5px 15px",
+          fontSize: "0.9rem",
+        }}
+      >
+        Free Sample
+      </button>
+
+      <h5 className="fw-bold mb-1">{meditation?.title}</h5>
+
+      <p className="text-primary mb-3" style={{ fontSize: "0.9rem" }}>
+        Narrated by {meditation?.author || "Unknown"}
+      </p>
+
+      {meditation?.audioURL && (
+        <audio
+          controls
+          style={{
+            borderRadius: "30px",
+            width: "80%",
+            maxWidth: "300px",
+            margin: "0 auto",
+            display: "block",
+          }}
+        >
+          <source src={meditation.audioURL} type="audio/mpeg" />
+        </audio>
+      )}
+    </div>
+
+    {/* Right Section */}
+    <div className="col-md-6 text-center">
+      <div
+        style={{
+          borderRadius: "25px",
+          overflow: "hidden",
+          maxWidth: "320px",
+          margin: "0 auto",
+          boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+        }}
+      >
+        <img
+          src={meditation?.imageURL || "https://via.placeholder.com/320x450"}
+          alt={meditation?.title || "Dream with Me"}
+          style={{
+            width: "100%",
+            height: "450px",
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      </div>
+    </div>
+     {/* Testimonials Section */}
         <section style={{ background: "#f8f9fa", padding: "60px 0", fontFamily: "'Roboto', sans-serif" }}>
           <h2
             style={{
@@ -189,8 +232,7 @@ function BeforeLigIn() {
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <div style={{ maxWidth: "1200px", margin: "80px auto", padding: "0 20px" }}>
+     <div style={{ maxWidth: "1200px", margin: "80px auto", padding: "0 20px" }}>
           <h2 style={{ textAlign: "center", color: "#1a2b49", fontWeight: "700", fontSize: "2.2rem", marginBottom: "40px" }}>
             Frequently Asked Questions
           </h2>
@@ -239,10 +281,9 @@ function BeforeLigIn() {
           ))}
         </div>
 
-        <BeforeLogInFooter />
-      </div>
+    <FooterBeforeLogIn/>
     </>
   );
 }
 
-export default BeforeLigIn;
+export default SleepBL;

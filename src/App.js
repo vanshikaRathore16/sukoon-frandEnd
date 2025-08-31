@@ -9,7 +9,7 @@ import Mood from "./componenet/mood/mood.js";
 import SelfReflation from "./componenet/mood/seldReflcation.js";
 import Pose from "./componenet/pose/pose.js";
 import Profile from "./componenet/profile/profile.js";
-import  Metidation from "./componenet/medidation/medidation.js";
+import Metidation from "./componenet/medidation/medidation.js";
 import QouteCategory from "./componenet/qoute/qouteCategory.js";
 import AboutUs from "./componenet/aboutUs/aboutUs.js";
 import Posecategory from "./componenet/pose/typeOdYoga.js";
@@ -41,7 +41,7 @@ import CreateArticle from "./componenet/admin/Adminarticle.js";
 import ArticleDetails from "./componenet/article/artileDetails.js";
 import Breathing from "./componenet/breathing/breathing.js";
 import BeforeLigIn from "./componenet/beforelogin/beforelogin.js";
-// import SleepBeforeLogIn from "./componenet/begoreLogIn/sleepBL.js";
+import SleepBL from "./componenet/beforelogin/sleepBL.js";
 // import StressBL from "./componenet/begoreLogIn/stressBeforeLog.js";
 // import Mindfullness from "./componenet/begoreLogIn/mindfullness.js";
 export const QouteCategorylist = createContext();
@@ -112,9 +112,9 @@ const loadQouteCategory = async()=>{
           <Route path="/createArticle" element = {<CreateArticle/>}/>
           <Route path = "/articleDetail/:id" element ={<ArticleDetails/>}/>
           <Route path ="/breathing" element = {<Breathing/>}/>
-          {/* <Route path = "/sleep"  element = {<SleepBeforeLogIn/>}/>
-          <Route path = "/Stress" element = {<StressBL/>}/>
-          <Route path = "/mindfullness" element = {<Mindfullness/>}/> */}
+          <Route path = "/sleep"  element = {<SleepBL/>}/>
+          {/* <Route path = "/Stress" element = {<StressBL/>}/> */}
+          {/* <Route path = "/mindfullness" element = {<Mindfullness/>}/> */}
           
     </Routes>
   </Router>

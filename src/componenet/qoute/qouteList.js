@@ -4,6 +4,7 @@ import React, { useEffect, useReducer } from "react";
 import EndPoint from "../apis/EndPoint";
 import { getCurrentUser } from "../auth/auth";
 import { toast, ToastContainer } from "react-toastify";
+import Header from "../Header";
 function UserfavoriteQuotes(){
       let user = getCurrentUser();
       const [state,dispatch] = useReducer((state,action)=>{
@@ -45,8 +46,9 @@ function UserfavoriteQuotes(){
       }
      return<>
      <ToastContainer/>
+     <Header/>
     <div style={{ padding: "2rem" }}>
-      <h2 style={{ textAlign: "center" }}>Your Favorite Quotes</h2>
+      <h2 style={{ textAlign: "center" }}>Favorite Quotes</h2>
       <div style={{ display: "grid", gap: "1rem" }}>
         {state.list.map((quote) => (
           <div
@@ -77,7 +79,7 @@ function UserfavoriteQuotes(){
       
                 marginTop: "10px",
                 padding: "0.5rem 1rem",
-                backgroundColor: "tomato",
+                backgroundColor: "#003366",
                 color: "white",
                 border: "none",
                 borderRadius: "5px",

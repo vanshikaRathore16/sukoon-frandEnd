@@ -38,15 +38,17 @@ function Header() {
       <div className="d-flex gap-4 align-items-center flex-grow-1 ms-5">
         {[
           ["Home", "/home"],
+          ["Meditation", "/GETMEDITATION"],
+           ["Article", "/article"],
           ["selfReflation", "/selfReflation"],
           // ["Quotes", "/qoute"],
           ["Pose", "/pose"],
           ["Personal Plan", "/personalplan"],
-          ["Routine", "/routine"],
-          ["Breathing", "/breathing"],
-          ["Article", "/article"],
-          ["About Us", "/aboutus"],
-          ["New Meditation", "/GETMEDITATION"],
+          // ["Routine", "/routine"],
+          // ["Breathing", "/breathing"],
+         
+          // ["About Us", "/aboutus"],
+        
         ].map(([label, path]) => (
           <Link
             key={path}
