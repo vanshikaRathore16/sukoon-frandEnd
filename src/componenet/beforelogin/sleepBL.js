@@ -159,28 +159,51 @@ function SleepBL() {
     </div>
 
     {/* Right Section */}
-    <div className="col-md-6 text-center">
-      <div
-        style={{
-          borderRadius: "25px",
-          overflow: "hidden",
-          maxWidth: "320px",
-          margin: "0 auto",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
-        }}
-      >
-        <img
-          src={meditation?.imageURL || "https://via.placeholder.com/320x450"}
-          alt={meditation?.title || "Dream with Me"}
-          style={{
-            width: "100%",
-            height: "450px",
-            objectFit: "cover",
-            display: "block",
-          }}
-        />
-      </div>
+     <div className="col-md-6 text-center">
+  <div
+    style={{
+      position: "relative",
+      borderRadius: "25px",
+      overflow: "hidden",
+      maxWidth: "320px",
+      margin: "0 auto",
+      boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+    }}
+  >
+    <img
+      src={meditation?.imageURL || "https://via.placeholder.com/320x450"}
+      alt={meditation?.title || "Dream with Me"}
+      style={{
+        width: "100%",
+        height: "450px",
+        objectFit: "cover",
+        display: "block",
+      }}
+    />
+
+    {/* Overlay content */}
+    <div
+      style={{
+        position: "absolute",
+        bottom: "0",
+        left: "0",
+        right: "0",
+        // background: "rgba(0, 0, 0, 0.5)", // dark overlay
+        color: "#fff",
+        padding: "15px",
+        textAlign: "center",
+      }}
+    >
+      <h5 style={{ fontWeight: "700", marginBottom: "5px" }}>
+        {meditation?.title || "Dream with Me"}
+      </h5>
+      <p style={{ fontSize: "0.9rem", margin: 0 }}>
+        {meditation?.description || "Relax and fall asleep peacefully."}
+      </p>
     </div>
+  </div>
+</div>
+
 
   </div>
 </div>
