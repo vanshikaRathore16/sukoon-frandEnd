@@ -79,7 +79,7 @@ function BeforeLigIn() {
           <p style={{ fontSize: "1.3rem", color: "#e0e0e0", marginBottom: "2rem" }}>
             The Premier App for Sleep, Meditation, and Relaxation
           </p>
-          <Link
+          {/* <Link
             to="/login"
             className="btn"
             style={{
@@ -97,7 +97,37 @@ function BeforeLigIn() {
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1a2b49")}
           >
             Get Started
-          </Link>
+          </Link> */}
+             <div>
+          <Link to="/signup">
+  <button
+    className="btn"
+    style={{
+      backgroundColor: "#003366",
+      color: "#fff",
+      padding: "14px 32px", // increased padding
+      borderRadius: "30px", // slightly larger curve
+      border: "none",
+      cursor: "pointer",
+      fontWeight: "600",
+      fontSize: "1.1rem", // increased font size
+      boxShadow: "0 6px 15px rgba(0,0,0,0.15)", // stronger shadow
+      transition: "all 0.3s ease",
+    }}
+    onMouseEnter={(e) => {
+      e.target.style.backgroundColor = "#4a68b0";
+      e.target.style.transform = "scale(1.08)"; // slightly bigger hover effect
+    }}
+    onMouseLeave={(e) => {
+      e.target.style.backgroundColor = "#003366";
+      e.target.style.transform = "scale(1)";
+    }}
+  >
+    get started
+  </button>
+</Link>
+
+        </div>
         </div>
 
         {/* Features Section */}

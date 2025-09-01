@@ -9,28 +9,37 @@ function SignUp() {
     name: "",
     email: "",
     password: "",
-    role: ""
+    role: "user"
   });
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
-    try {
-      event.preventDefault();
-      setIsLoading(true);
-      let response = await axios.post(EndPoint.SIGN_UP, state);
-      toast.success(response.data.message);
-      setState({
-        name: "",
-        email: "",
-        password: "",
-        role: ""
-      });
-    } catch (err) {
-      console.log(err);
-      toast.error("something went wrong");
-    }
+  event.preventDefault();
+
+  // ✅ Validation for empty fields
+  if (!state.name.trim() || !state.email.trim() || !state.password.trim()) {
+    toast.error("⚠️ All fields are required!");
+    return;
+  }
+
+  try {
+    setIsLoading(true);
+    let response = await axios.post(EndPoint.SIGN_UP, state);
+    toast.success(response.data.message);
+    // Reset form
+    setState({
+      name: "",
+      email: "",
+      password: "",
+      role: "user"
+    });
+  } catch (err) {
+    console.log(err);
+    toast.error("❌ Something went wrong");
+  } finally {
     setIsLoading(false);
-  };
+  }
+};
 
   return (
     <>

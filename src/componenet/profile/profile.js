@@ -71,10 +71,10 @@ function ProfilePage() {
 };
 
   const services = [
-    { id: "graphic", title: "moods", desc: "Logos, posters, and branding designs.", color: "#f8f9fa" },
-    { id: "web", title: "notes", desc: "Modern, responsive websites with UI/UX focus.", color: "#e3f2fd" },
-    { id: "software", title: "personal plan", desc: "Custom software solutions for your needs.", color: "#fff3e0" },
-    { id: "application", title: "fav qoute", desc: "Mobile & desktop apps with modern tech.", color: "#f1f8e9" },
+    { id: "graphic", title: "moods", desc: "Your Mood Journey 🌸 See all your past feelings at a glance.", color: "#f8f9fa" },
+    { id: "web", title: "notes", desc: "Review and revisit everything you’ve saved so far.", color: "#e3f2fd" },
+    { id: "software", title: "personal plan", desc: "Review all your past personal plans and see your progress toward peace and balance.", color: "#fff3e0" },
+    { id: "application", title: "fav qoute", desc: "All the quotes you’ve saved in one place", color: "#f1f8e9" },
   ];
 
   // Handle service card click
@@ -109,7 +109,7 @@ function ProfilePage() {
     textShadow: "2px 2px 6px rgba(0,0,0,0.2)",
   }}
 >
-  Calm
+  sukoon
 </h1>
 
 <p

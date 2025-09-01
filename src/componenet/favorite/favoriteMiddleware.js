@@ -5,27 +5,31 @@ import { toast } from "react-toastify";
 import { GiToadTeeth } from "react-icons/gi";
 
 export const addTofavorite = async (itemId, itemType) => {
-     try {
-      const user = getCurrentUser();
-      const userId = user ? user._id : null;
+  try {
+    const user = getCurrentUser();
+    const userId = user ? user._id : null;
+
     const response = await axios.post(EndPoint.ADD_TO_FAVORITE, {
       itemId,
       itemType,
       userId,
     });
-    if(response.data.message === "added"){
-       toast.error("alresdy added in fav");
-       return;
+
+    if (response.data.message === "already added") {
+      toast.error("Already in favorites");
+      return;
     }
+
     console.log("Favorite added successfully:", response.data);
-    toast.success("good")
+    toast.success("Added to favorites ✅");
     return response.data;
   } catch (error) {
     console.error("Error in addToFavorite:", error.response?.data || error.message);
-    toast.error("something went wrong");
+    toast.error("Something went wrong");
     throw error;
   }
 };
+
 
 //  try {
 //     const user = getCurrentUser();

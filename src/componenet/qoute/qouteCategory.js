@@ -5,6 +5,7 @@ import { addTofavorite } from "../favorite/favoriteMiddleware";
 import axios from "axios";
 import EndPoint from "../apis/EndPoint";
 import { toast, ToastContainer } from "react-toastify";
+import Header from "../Header";
 export default function QouteCategory(){
   let {CategoryList} = useContext(QouteCategorylist);
      const {category} = useParams();
@@ -35,38 +36,7 @@ export default function QouteCategory(){
 
     return <>
          <ToastContainer/>
-        {/* Category Tabs */}
-       <div
-        style={{
-          backgroundColor: "#111",
-          color: "white",
-          padding: "12px 0",
-          overflowX: "auto",
-          whiteSpace: "nowrap",
-        }}
-      >
-        <div
-          className="container d-flex flex-wrap justify-content-center gap-2"
-          style={{ rowGap: "10px", columnGap: "12px" }}
-        >
-          {CategoryList.map((cat, i) => (
-            <button
-              key={i}
-              className="btn btn-sm rounded-pill"
-              style={{
-                padding: "6px 18px",
-                fontWeight: 500,
-                backgroundColor: "#333",
-                color: "white",
-                border: "none",
-              }}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-      </div>
-
+        <Header/>
         {/* Quotes Section */}
        <div className="container my-5">
   <h2 className="text-center mb-4">Daily Quotes</h2>

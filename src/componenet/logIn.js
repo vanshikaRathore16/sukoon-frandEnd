@@ -12,34 +12,52 @@ function LogIn() {
   });
 
   const handleSubmit = async (event) => {
-    try {
-      event.preventDefault();
-      if (state.email && state.password) {
-        let response = await axios.post(EndPoint.SiGN_IN, state);
-        console.log("response.data:", response.data);
-        sessionStorage.setItem(
-          "current_user",
-          JSON.stringify(response.data.message)
-        );
-        toast.success("Sign in successfully ✨");
+  event.preventDefault();
 
-        if (response.data.message.role === "admin") {
-          navigate("/adminDoshboard");
-        } else {
-          navigate("/home");
-        }
-      } else {
-        toast.error("Please enter valid email and password");
-      }
-    } catch (err) {
-      console.log(err);
-      toast.error("Something went wrong");
+  // ✅ Validation before API call
+  if (!state.email.trim() || !state.password.trim()) {
+    toast.error("Please enter both email and password");
+    return;
+  }
+
+  try {
+    let response = await axios.post(EndPoint.SiGN_IN, state);
+    console.log("response.data:", response.data);
+
+    sessionStorage.setItem(
+      "current_user",
+      JSON.stringify(response.data.message)
+    );
+
+    toast.success("Sign in successfully ✨");
+
+    if (response.data.message.role === "admin") {
+      navigate("/adminDoshboard");
+    } else {
+      navigate("/home");
     }
-  };
+  } catch (err) {
+    console.log(err);
+    toast.error("Invalid email or password ❌");
+  }
+};
+
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+   position="top-center"       // top-right | top-center | bottom-right etc.
+  autoClose={2500}            // close in 2.5 sec
+  hideProgressBar={false}     // show progress bar
+  newestOnTop={true}          // newest toast first
+  closeOnClick
+  rtl={false}
+  pauseOnFocusLoss
+  draggable
+  pauseOnHover
+  theme="colored"             // ✅ options: "light", "dark", "colored"
+/>
+
       <div
         className="login-wrapper d-flex justify-content-center align-items-center vh-100"
         style={{
