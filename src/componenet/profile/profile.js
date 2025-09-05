@@ -134,7 +134,7 @@ function ProfilePage() {
             <div className="col-md-4 text-center mb-4">
               <div style={{ background: "#597faaff", borderRadius: "16px", padding: "30px", color: "white" }}>
                 <img
-                  src={`http://localhost:3000/profile/${localUser?.profile?.imageaname}`}
+                  src={`https://sukoonbk-1.onrender.com/profile/${localUser?.profile?.imageaname}`}
                   alt="Profile"
                   style={{ borderRadius: "50%", width: "120px", height: "120px", objectFit: "cover", marginBottom: "15px" }}
                 />
