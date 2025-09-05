@@ -1,6 +1,7 @@
 
 
-export const BASE_URL = "http://localhost:3000";
+// export const BASE_URL = "http://localhost:3000"; 
+export const BASE_URL = "https://sukoonbk-1.onrender.com" 
 export default{
     SIGN_UP : BASE_URL+"/user/create",
     SiGN_IN : BASE_URL+"/user/authUser",
